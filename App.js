@@ -9,6 +9,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./screens/LoginPage";
 import SignUp from "./screens/SignUp";
 import Event from './screens/Event';
+import ProfileScreen from './screens/ProfilePage';
+import EditProfilePage from './screens/EditProfilePage';
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -110,7 +112,7 @@ const App = () => {
 
           <Tabs.Screen
             name="Profile" 
-            component={Login}
+            component={ProfileScreen}
             options={{
               tabBarIcon: ({ size }) => (
                 <Ionicons name="md-settings-outline" size={size} color="white" />
@@ -174,6 +176,14 @@ const App = () => {
               name='SignUp'
               component={SignUp}
               options={{ headerShown: false }}
+            />
+            <Stack.Screen 
+              name="ProfileScreen" 
+              component={ProfileScreen} 
+            />
+            <Stack.Screen 
+              name="EditProfilePage" 
+              component={EditProfilePage} 
             />
           </Stack.Navigator>
         )}
