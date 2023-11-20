@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, StyleSheet, View, TextInput, Pressable } from 'react-native';
-import { EyeIcon, EyeOffIcon } from 'react-native-heroicons';
+import { EyeIcon, EyeSlashIcon } from 'react-native-heroicons/outline';
 
 const LoginPasswordInput = ({ placeholder, onChangeText }) => {
   const [togglePassword, setTogglePassword] = React.useState(false);
@@ -23,7 +23,7 @@ const LoginPasswordInput = ({ placeholder, onChangeText }) => {
           />
           {/* If it's a password, add a toggle for viewing between password and normal text */}
           {togglePassword ? (
-            <EyeOffIcon
+            <EyeSlashIcon
               name="eye-off"
               size={24}
               color="black"
