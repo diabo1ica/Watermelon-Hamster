@@ -17,6 +17,8 @@ const LoginPage = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header1}>Welcome to RealLife!</Text>
+      <Text>Please Login</Text>
       <LoginEmailInput placeholder='Email' onChangeText={setEmail} />
       <LoginPasswordInput placeholder='Password' onChangeText={setPassword}/>
       <LoginButton onPress={handleLogin} />
@@ -31,6 +33,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     backgroundColor: '#1A1A1A',
+  },
+  header1: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    color: 'white',
   },
   input: {
     width: '100%',
