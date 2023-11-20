@@ -6,7 +6,7 @@ import PasswordInput from '../components/PasswordInput';
 import { useNavigation } from '@react-navigation/native';
 import Selector from '../components/Selector';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../App';
+import { auth } from '../components/AuthUtils';
 
 
 const SignUp = () => {

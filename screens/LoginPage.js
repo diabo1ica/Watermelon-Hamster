@@ -5,7 +5,7 @@ import PasswordInput from '../components/PasswordInput';
 import FormInputs from '../components/FormInputs';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../App';
+import { auth } from '../components/AuthUtils';
 
 const LoginPage = () => {
   // Navigate
