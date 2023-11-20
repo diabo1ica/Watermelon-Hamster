@@ -4,6 +4,6 @@ import { Button, Text, TextInput, View } from 'react-native';
 
 export default function Events() {
     return (
-        <Text>This is event page</Text>
+			<Text>This is event page</Text>
     )
 }
