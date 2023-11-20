@@ -1,25 +1,61 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import Button from '../components/Button';
+import { View, StyleSheet, Button, Text, Alert } from 'react-native';
+import SubmitButton from '../components/SubmitButton';
 import PasswordInput from '../components/PasswordInput';
 import FormInputs from '../components/FormInputs';
+import { useNavigation } from '@react-navigation/native';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../App';
 
 const LoginPage = () => {
+  // Navigate
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Perform login logic here
-    console.log('Logging in...');
-    console.log('Username:', email);
-    console.log('Password:', password);
+  const handleLogin = async () => {
+    if (email !== '' || password !== '') {
+      // Perform login logic here
+      console.log('Logging in...');
+      console.log('Username:', email);
+      console.log('Password:', password);
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        console.log('Logged in successfully!');
+      } catch (error) {
+        // Handle specific authentication errors
+        switch (error.code) {
+          case 'auth/invalid-login-credentials':
+            Alert.alert('Invalid Login Credentials', 'Please check your username and password.');
+            break;
+          case 'auth/invalid-email':
+            Alert.alert('Invalid Email', 'Please enter a valid email.');
+            break;
+          default:
+            Alert.alert('Login Error', 'An error occurred during login. Please try again.');
+            console.error(error.message)
+            break;
+        }
+      }
+    } else {
+      // Show an alert if not all forms are filled
+      Alert.alert('Incomplete Form', 'Please fill in all the required fields.');
+    }
   };
 
   return (
     <View style={styles.container}>
       <FormInputs placeholder='Email' onChangeText={setEmail} />
-      <PasswordInput placeholder='Password' onChangeText={setPassword}/>
-      <Button text='Login' onPress={handleLogin} />
+      <PasswordInput placeholder='Password' onChangeText={setPassword} />
+      <SubmitButton disabled={false} text='Login' onPress={handleLogin} />
+      {/* Already have an account */}
+      <Text style={styles.noAccount}>Don't have an account?</Text>
+      <Button
+        title='Sign Up'
+        style={styles.signUpButton}
+        onPress={() => navigation.navigate('SignUp')}
+      />
     </View>
   );
 };
@@ -54,6 +90,14 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  noAccount: {
+    color: 'white',
+    marginTop: 20,
+  },
+  signUpButton: {
+    color: '#AF66CC',
+    fontWeight: 'bold',
   },
 });
 
