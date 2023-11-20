@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { Text, StyleSheet, View, TextInput, Pressable } from 'react-native';
+import { EyeIcon, EyeSlashIcon } from 'react-native-heroicons/outline';
 
-const LoginTextInput = ({ placeholder, onChangeText}) => {
+const PasswordInput = ({ placeholder, onChangeText }) => {
+  const [togglePassword, setTogglePassword] = React.useState(false);
+
+  const handleTogglePassword = () => {
+    setTogglePassword(!togglePassword);
+  };
+
   return (
     <>
       <View style={styles.textInput}>
@@ -10,9 +17,28 @@ const LoginTextInput = ({ placeholder, onChangeText}) => {
         </View>
         <View style={styles.baseInputField}>
           <TextInput
+            secureTextEntry={!togglePassword}
             style={styles.inputPlaceholder}
             onChangeText={onChangeText}
           />
+          {/* If it's a password, add a toggle for viewing between password and normal text */}
+          {togglePassword ? (
+            <EyeSlashIcon
+              name="eye-off"
+              size={24}
+              color="black"
+              style={styles.eyeIcon}
+              onPress={handleTogglePassword}
+            />
+          ) : (
+            <EyeIcon
+              name="eye"
+              size={24}
+              color="black"
+              style={styles.eyeIcon}
+              onPress={handleTogglePassword}
+            />
+          )}
         </View>
       </View>
     </>
@@ -44,15 +70,21 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   baseInputField: {
+    flexDirection: 'row',
+    alignItems: 'center',
     alignSelf: 'stretch',
     borderRadius: 100,
     backgroundColor: '#F2F2F2',
     height: 48,
     marginTop: 4,
+    paddingRight: 10,
   },
   textInput: {
     marginVertical: 7,
   },
+  eyeIcon: {
+    marginLeft: 10,
+  },
 });
 
-export default LoginTextInput;
+export default PasswordInput;
