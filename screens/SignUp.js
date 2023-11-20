@@ -1,23 +1,71 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import Button from '../components/Button';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Button, Text, Alert } from 'react-native';
+import SubmitButton from '../components/SubmitButton';
 import FormInputs from '../components/FormInputs';
 import PasswordInput from '../components/PasswordInput';
+import { useNavigation } from '@react-navigation/native';
+import Selector from '../components/Selector';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../components/AuthUtils';
 
 const SignUp = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [mobileNum, setMobileNum] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
-  const handleSignUp = () => {
-    // Perform login logic here
-    console.log('Logging in...');
-    console.log('Email:', email);
-    console.log('Mobile Number:', mobileNum);
-    console.log('Full Name:', name);
-    console.log('Password:', password);
+  const [allFormsFilled, setAllFormsFilled] = useState(false);
+
+  // Check if all forms are filled
+  const checkForms = () => {
+    if (email === '' || mobileNum === '' || name === '' || password === '') {
+      setAllFormsFilled(false);
+    } else {
+      setAllFormsFilled(true);
+    }
   };
+
+  useEffect(() => {
+    checkForms();
+  }, [email, mobileNum, name, password]);
+
+
+  const handleSignUp = async () => {
+    // Perform sign-up logic here if all forms are filled
+    if (allFormsFilled) {
+      console.log('Signing up...');
+      console.log('Email:', email);
+      console.log('Mobile Number:', mobileNum);
+      console.log('Full Name:', name);
+      console.log('Password:', password);
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        console.log('User registered successfully!');
+      } catch (error) {
+        // Use curly braces to wrap the switch statement
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            Alert.alert('Email already in use', 'Please use another email.');
+            break;
+          case 'auth/invalid-email':
+            Alert.alert('Invalid Email', 'Please use a valid email.');
+            break;
+          case 'auth/weak-password':
+            Alert.alert('Weak Password', 'Please use a stronger password.');
+            break;
+          default:
+            Alert.alert('Error', error.message);
+            break;
+        }
+      }
+    } else {
+      // Show an alert if not all forms are filled
+      Alert.alert('Incomplete Form', 'Please fill in all the required fields.');
+    }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -25,7 +73,12 @@ const SignUp = () => {
       <FormInputs placeholder='MobileNum' onChangeText={setMobileNum} />
       <FormInputs placeholder='Name' onChangeText={setName} />
       <PasswordInput placeholder='Password' onChangeText={setPassword}/>
-      <Button text='Register' onPress={handleSignUp} />
+      <Selector toggleCheckBox={toggleCheckBox} setToggleCheckBox={setToggleCheckBox}/>
+
+      <SubmitButton disabled={!toggleCheckBox} text='Register' onPress={handleSignUp} />
+
+      <Text style={styles.noAccount}>Don't have an account?</Text>
+      <Button title='Login' style={styles.signUpButton} onPress={() => navigation.navigate('LoginPage')} />
     </View>
   );
 };
@@ -55,6 +108,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  noAccount: {
+    color: 'white',
+    marginTop: 20,
+  },    
 });
 
 export default SignUp;

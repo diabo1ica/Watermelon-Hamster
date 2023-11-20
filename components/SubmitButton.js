@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const Button = ({text ,onPress}) => {
+const SubmitButton = ({ text, onPress, disabled }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.loginContainer} onPress={onPress}>
-        <Text style={styles.loginText}>{text}</Text>
+      <TouchableOpacity
+        disabled={disabled}
+        style={[styles.loginContainer, disabled && styles.disabledContainer]}
+        onPress={onPress}
+      >
+        <Text style={[styles.loginText, disabled && styles.disabledText]}>{text}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -24,6 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#AF66CC', // Change the background color as needed
     borderRadius: 25,
+    color: 'white',
     flex: 1,
     width: '100%',
     height: 46,
@@ -34,6 +39,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: 22,
   },
+  disabledContainer: {
+    backgroundColor: '#CCCCCC', // Change the background color for disabled state
+    opacity: 0.7, // Adjust opacity for disabled state
+  },
+  disabledText: {
+    color: '#999999', // Change the text color for disabled state
+  },
 });
 
-export default Button;
+export default SubmitButton;
