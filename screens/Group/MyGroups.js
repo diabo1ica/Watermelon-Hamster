@@ -1,11 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const MainGroupPage = () => {
+const MyGroups = ({ navigation }) => {
+  const createGroup = () => {
+    // Navigate to create event page and pass the groups data
+    navigation.navigate('CreateGroup');
+  };
+  const [groups, setGroups] = React.useState([]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header1}>Your Groups</Text>
-      <TouchableOpacity style={styles.noAccount}><Text style={styles.newGroup}>+ New Group</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.noAccount} onPress={createGroup}>
+        <Text style={styles.newGroup}>+ New Group</Text>
+      </TouchableOpacity>
+      {/* Show list of groups */}
     </View>
   );
 };
@@ -59,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainGroupPage;
+export default MyGroups;

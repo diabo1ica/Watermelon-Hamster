@@ -2,12 +2,12 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Login from "./screens/LoginPage";
-import SignUp from "./screens/SignUp";
+import Login from './screens/LoginPage';
+import SignUp from './screens/SignUp';
 import Event from './screens/Event';
 
 import { useFonts } from 'expo-font';
@@ -15,7 +15,9 @@ import 'firebase/firestore';
 import { auth } from './components/AuthUtils';
 import { signOut } from 'firebase/auth'; // Import the appropriate function from Firebase auth
 import LogoutButton from './components/LogoutButton';
-import MainGroupPage from './screens/Group/MainGroupPage';
+
+import MyGroups from './screens/Group/MyGroups';
+import CreateGroup from './screens/Group/CreateGroup'; // Import CreateGroups
 
 import CreateEvent from './screens/CreateEvent';
 
@@ -30,7 +32,6 @@ const handleLogout = async () => {
     console.error('Error logging out:', error.message);
   }
 };
-
 
 const App = () => {
   const [showHomeScreen, setShowHomeScreen] = React.useState(false);
@@ -49,34 +50,34 @@ const App = () => {
 
   const BottomTabs = () => {
     return (
-        <Tabs.Navigator 
-          screenOptions={{ 
-            headerShown: true,
-            tabBarStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-            tabBarActiveTintColor: 'white',
-            tabBarInactiveTintColor: 'white', 
-            headerStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-          }}>
-
-          <Tabs.Screen
-            name="Home"
-            component={Event}
-            options={{
-              tabBarIcon: ({ size }) => (
-                <Ionicons name="md-home-outline" size={size} color="white" />
-              ),
-              
-            }}
-          >
-          </Tabs.Screen>
+      <Tabs.Navigator
+        screenOptions={{
+          headerShown: true,
+          tabBarStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+            color: 'white',
+          },
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: 'white',
+          headerStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+          },
+          headerTintColor: 'white',
+        }}
+      >
+        <Tabs.Screen
+          name='Home'
+          component={Event}
+          options={{
+            tabBarIcon: ({ size }) => (
+              <Ionicons name='md-home-outline' size={size} color='white' />
+            ),
+          }}
+        ></Tabs.Screen>
 
         <Tabs.Screen
           name='Groups'
-          component={Event}
+          component={MyGroups}
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons
@@ -87,7 +88,6 @@ const App = () => {
             ),
           }}
         ></Tabs.Screen>
-
         <Tabs.Screen
           name='Events'
           component={Event}
@@ -98,30 +98,28 @@ const App = () => {
           }}
         ></Tabs.Screen>
 
-          <Tabs.Screen
-            name="Search"
-            component={Event}
-            options={{
-              tabBarIcon: ({ size }) => (
-                <Ionicons name="md-search" size={size} color="white" />
-              )
-            }}
-          >
-          </Tabs.Screen>
+        <Tabs.Screen
+          name='Search'
+          component={Event}
+          options={{
+            tabBarIcon: ({ size }) => (
+              <Ionicons name='md-search' size={size} color='white' />
+            ),
+          }}
+        ></Tabs.Screen>
 
-          <Tabs.Screen
-            name="Profile" 
-            component={Login}
-            options={{
-              tabBarIcon: ({ size }) => (
-                <Ionicons name="md-settings-outline" size={size} color="white" />
-              )
-            }}
-          />
-
-        </Tabs.Navigator>
-    )
-  }
+        <Tabs.Screen
+          name='Profile'
+          component={Login}
+          options={{
+            tabBarIcon: ({ size }) => (
+              <Ionicons name='md-settings-outline' size={size} color='white' />
+            ),
+          }}
+        />
+      </Tabs.Navigator>
+    );
+  };
 
   const [fontsLoaded, error] = useFonts({
     'GothicA1-Regular': require('./assets/fonts/GothicA1-Regular.ttf'),
@@ -142,30 +140,41 @@ const App = () => {
             <Stack.Screen
               name='Home'
               component={BottomTabs}
-              options={{ 
+              options={{
                 headerStyle: {
                   backgroundColor: 'rgb(46,46,46)',
                 },
-                headerShown: false 
+                headerShown: false,
               }}
             />
 
             <Stack.Screen
-              name="CreateEvent"
+              name='CreateEvent'
               component={CreateEvent}
               options={{
-                headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />, 
                 headerStyle: {
                   backgroundColor: 'rgb(46,46,46)',
                 },
-                headerTitle: 'Create an Event', 
+                headerTitle: 'Create an Event',
                 headerTintColor: 'white',
               }}
             />
-          </Stack.Navigator>
 
+            <Stack.Screen
+              name='CreateGroup'
+              component={CreateGroup}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Create Group',
+                headerTintColor: 'white',
+                headerBackTitle: 'Groups'
+              }}
+            />
+          </Stack.Navigator>
         ) : (
-          <Stack.Navigator screenOptions={{ headerShown: false}}>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
               name='Login'
               component={Login}
