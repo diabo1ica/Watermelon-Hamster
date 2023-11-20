@@ -31,9 +31,6 @@ export default function CreateEvent({ navigation }) {
 
 	return (
 		<View>
-		
-      
-
 			<TextInput 
 				placeholder="title" 
 				value={title} 
