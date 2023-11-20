@@ -62,8 +62,8 @@ const App = () => {
           }}>
 
           <Tabs.Screen
-            name="Home"
-            component={Event}
+            name="HomePage"
+            component={HomePage}
             options={{
               tabBarIcon: ({ size }) => (
                 <Ionicons name="md-home-outline" size={size} color="white" />
@@ -139,7 +139,7 @@ const App = () => {
         {showHomeScreen ? (
           <Stack.Navigator>
             <Stack.Screen
-              name='Home'
+              name="HomePage"
               component={BottomTabs}
               options={{ 
                 headerStyle: {
@@ -158,8 +158,12 @@ const App = () => {
                 },
                 headerTitle: 'Create an Event', 
                 headerTintColor: 'white',
+                headerShown: true,
+                headerRight: () => {
+                    <LogoutButton onPress={() => handleLogout()} />
+                }
               }}
-              options={{ headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />, }}
+            //   options={{ headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />, }}
             />
           </Stack.Navigator>
 
