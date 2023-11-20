@@ -3,8 +3,8 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import LoginPage from "./screens/LoginPage";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SignUp from "./screens/SignUp";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -27,6 +27,11 @@ const App = () => {
             <Stack.Screen
               name="LoginPage"
               component={LoginPage}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="SignUp"
+              component={SignUp}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
