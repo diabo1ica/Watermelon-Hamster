@@ -1,15 +1,17 @@
 import * as React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { useFonts } from "expo-font";
-import LoginPage from "./screens/LoginPage";
+import Login from "./screens/LoginPage";
 import SignUp from "./screens/SignUp";
-import Event from './screens/EventHome';
+import Event from './screens/Event';
+
+import CreateEvent from "./screens/CreateEvent";
+
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -21,21 +23,25 @@ const App = () => {
     return (
         <Tabs.Navigator 
           screenOptions={{ 
-            headerShown: false,
+            headerShown: true,
             tabBarStyle: {
               backgroundColor: 'rgb(46,46,46)',
             },
             tabBarActiveTintColor: 'white',
             tabBarInactiveTintColor: 'white', 
+            headerStyle: {
+              backgroundColor: 'rgb(46,46,46)',
+            },
           }}>
 
           <Tabs.Screen
             name="Home"
             component={Event}
             options={{
-              tabBarIcon: ({ size, color }) => (
+              tabBarIcon: ({ size }) => (
                 <Ionicons name="md-home-outline" size={size} color="white" />
-              )
+              ),
+              
             }}
           >
           </Tabs.Screen>
@@ -75,7 +81,7 @@ const App = () => {
 
           <Tabs.Screen
             name="Profile" 
-            component={LoginPage}
+            component={Login}
             options={{
               tabBarIcon: ({ size }) => (
                 <Ionicons name="md-settings-outline" size={size} color="white" />
@@ -85,7 +91,6 @@ const App = () => {
 
         </Tabs.Navigator>
     )
-    
   }
 
   const [fontsLoaded, error] = useFonts({
@@ -107,14 +112,32 @@ const App = () => {
             <Stack.Screen
               name="Home"
               component={BottomTabs}
-              options={{ headerShown: true }}
+              options={{ 
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerShown: false 
+              }}
+            />
+
+            <Stack.Screen
+              name="CreateEvent"
+              component={CreateEvent}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Create an Event', 
+                headerTintColor: 'white',
+              }}
             />
           </Stack.Navigator>
+
         ) : (
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
               name="LoginPage"
-              component={LoginPage}
+              component={Login}
               options={{ headerShown: false }}
             />
             <Stack.Screen
