@@ -14,6 +14,7 @@ import { auth } from './components/AuthUtils';
 import { signOut } from 'firebase/auth'; // Import the appropriate function from Firebase auth
 import Event from './screens/EventHome';
 import LogoutButton from './components/LogoutButton';
+import MainGroupPage from './screens/Group/MainGroupPage';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -50,8 +51,9 @@ const App = () => {
           headerShown: false,
           tabBarStyle: {
             backgroundColor: 'rgb(46,46,46)',
+            opacity: 0.5,
           },
-          tabBarActiveTintColor: 'white',
+          tabBarActiveTintColor: 'lightblue',
           tabBarInactiveTintColor: 'white',
         }}
       >
@@ -67,7 +69,7 @@ const App = () => {
 
         <Tabs.Screen
           name='My Groups'
-          component={Event}
+          component={MainGroupPage}
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons name='md-people-outline' size={size} color='white' />
@@ -135,7 +137,7 @@ const App = () => {
             />
           </Stack.Navigator>
         ) : (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Navigator screenOptions={{ headerShown: false}}>
             <Stack.Screen
               name='LoginPage'
               component={LoginPage}
