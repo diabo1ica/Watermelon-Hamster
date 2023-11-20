@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./screens/LoginPage";
 import SignUp from "./screens/SignUp";
 import Event from './screens/Event';
+import EventComponent from './components/EventComponent';
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -30,7 +31,6 @@ const handleLogout = async () => {
   }
 };
 
-
 const App = () => {
   const [showHomeScreen, setShowHomeScreen] = React.useState(false);
 
@@ -48,30 +48,30 @@ const App = () => {
 
   const BottomTabs = () => {
     return (
-        <Tabs.Navigator 
-          screenOptions={{ 
-            headerShown: true,
-            tabBarStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-            tabBarActiveTintColor: 'white',
-            tabBarInactiveTintColor: 'white', 
-            headerStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-          }}>
+      <Tabs.Navigator 
+        screenOptions={{ 
+          headerShown: true,
+          tabBarStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+          },
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: 'white', 
+          headerStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+          },
+          headerTintColor: 'white',
+        }}>
 
-          <Tabs.Screen
-            name="Home"
-            component={Event}
-            options={{
-              tabBarIcon: ({ size }) => (
-                <Ionicons name="md-home-outline" size={size} color="white" />
-              ),
-              
-            }}
-          >
-          </Tabs.Screen>
+        <Tabs.Screen
+          name="Home"
+          component={Event}
+          options={{
+            tabBarIcon: ({ size }) => (
+              <Ionicons name="md-home-outline" size={size} color="white" />
+            ),
+          }}
+        >
+        </Tabs.Screen>
 
         <Tabs.Screen
           name='Groups'
@@ -79,9 +79,7 @@ const App = () => {
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons
-                name='md-game-controller-outline'
-                size={size}
-                color='white'
+                name='md-game-controller-outline' size={size} color='white'
               />
             ),
           }}
@@ -97,28 +95,28 @@ const App = () => {
           }}
         ></Tabs.Screen>
 
-          <Tabs.Screen
-            name="Search"
-            component={Event}
-            options={{
-              tabBarIcon: ({ size }) => (
-                <Ionicons name="md-search" size={size} color="white" />
-              )
-            }}
-          >
-          </Tabs.Screen>
+        <Tabs.Screen
+          name="Search"
+          component={Event}
+          options={{
+            tabBarIcon: ({ size }) => (
+              <Ionicons name="md-search" size={size} color="white" />
+            )
+          }}
+        >
+        </Tabs.Screen>
 
-          <Tabs.Screen
-            name="Profile" 
-            component={Login}
-            options={{
-              tabBarIcon: ({ size }) => (
-                <Ionicons name="md-settings-outline" size={size} color="white" />
-              )
-            }}
-          />
+        <Tabs.Screen
+          name="Profile" 
+          component={Login}
+          options={{
+            tabBarIcon: ({ size }) => (
+              <Ionicons name="md-settings-outline" size={size} color="white" />
+            )
+          }}
+        />
 
-        </Tabs.Navigator>
+      </Tabs.Navigator>
     )
   }
 
@@ -152,6 +150,19 @@ const App = () => {
             <Stack.Screen
               name="CreateEvent"
               component={CreateEvent}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Create an Event', 
+                headerTintColor: 'white',
+              }}
+              options={{ headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />, }}
+            />
+
+            <Stack.Screen
+              name="EventComponent"
+              component={EventComponent}
               options={{
                 headerStyle: {
                   backgroundColor: 'rgb(46,46,46)',

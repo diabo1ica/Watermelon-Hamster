@@ -10,6 +10,19 @@ export default function CreateEvent({ navigation }) {
 	const [endDate, setEndDate] = React.useState(new Date());
 	const [description, setDescription] = React.useState('');
 
+	const formatDate = (date) => {
+		const options = { year: 'numeric', month: 'long', day: 'numeric' };
+		return date.toLocaleDateString(undefined, options);
+	}
+
+	const [startDateString, setStartDateString] = React.useState('');
+	const [endDateString, setEndDateString] = React.useState('');
+
+	React.useEffect(() => {
+		setStartDateString(formatDate(startDate))
+		setEndDateString(formatDate(endDate))
+	}, [startDate, endDate])
+
 
 	const onChangeStartDate = (event, selectedDate) => {
     const currentDate = selectedDate || startDate;
@@ -100,7 +113,10 @@ export default function CreateEvent({ navigation }) {
 			<Button
 				style={{ flex: 1 }}
         title="Submit"
-        onPress={() => navigation.navigate("Events", { title, body })}
+        onPress={() => {
+					navigation.navigate("Events", { title, location, startDate: startDateString, endDate: endDateString, description })
+					console.log(startDateString);
+				}}
       />
 			</View>
 
