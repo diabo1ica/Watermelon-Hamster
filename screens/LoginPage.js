@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#1A1A1A',
   },
+  header1: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    color: 'white',
+  },
   input: {
     width: '100%',
     height: 40,
