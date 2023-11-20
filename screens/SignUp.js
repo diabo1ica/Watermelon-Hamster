@@ -8,7 +8,6 @@ import Selector from '../components/Selector';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../components/AuthUtils';
 
-
 const SignUp = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
