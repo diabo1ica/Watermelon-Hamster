@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import CardSlider from '../components/HomeComponents/CardSlider';
+import ColumnCardSlider from '../components/HomeComponents/ColumnCardSlider';
 
 const HomePage = () => {
   return (
-    <View style={styles.container}>
-        <Text style={styles.componentTitle}>{'Reccomendations Near You'}</Text>
+    <ScrollView style={styles.container}>
+        <Text style={styles.componentTitle}>{'Recomendations Near You'}</Text>
         <CardSlider/>
-        <Text style={styles.componentTitle}>{'New Group Reccomendations'}</Text>
-    </View>
+        <Text style={styles.componentTitle}>{'New Group Recomendations'}</Text>
+        <ColumnCardSlider/>
+    </ScrollView>
   );
 };
 
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 'bold',
     lineHeight: 22,
-    marginBottom: 15
+    marginBottom: 15,
   }
 });
 
