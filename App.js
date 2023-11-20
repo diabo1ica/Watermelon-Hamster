@@ -10,6 +10,7 @@ import { useFonts } from "expo-font";
 import LoginPage from "./screens/LoginPage";
 import SignUp from "./screens/SignUp";
 import Event from './screens/EventHome';
+import HomePage from './screens/HomePage';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -30,8 +31,8 @@ const App = () => {
           }}>
 
           <Tabs.Screen
-            name="Home"
-            component={Event}
+            name="HomePage"
+            component={HomePage}
             options={{
               tabBarIcon: ({ size, color }) => (
                 <Ionicons name="md-home-outline" size={size} color="white" />
@@ -105,7 +106,7 @@ const App = () => {
         {showHomeScreen ? (
           <Stack.Navigator>
             <Stack.Screen
-              name="Home"
+              name="HomePage"
               component={BottomTabs}
               options={{ headerShown: true }}
             />
