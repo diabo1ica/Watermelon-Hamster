@@ -9,7 +9,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './screens/LoginPage';
 import SignUp from './screens/SignUp';
 import Event from './screens/Event';
-import HomePage from './screens/HomePage';
+import EventDetails from './screens/EventDetails';
+import HomePage from './screens/HomePage'
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -51,21 +52,23 @@ const App = () => {
 
   const BottomTabs = () => {
     return (
-        <Tabs.Navigator 
-          screenOptions={{ 
-            headerShown: true,
-            tabBarStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-            tabBarActiveTintColor: 'white',
-            tabBarInactiveTintColor: 'white', 
-            headerStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-          }}>
+      <Tabs.Navigator 
+        screenOptions={{ 
+          headerShown: true,
+          tabBarStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+          },
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: 'white', 
+          headerStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+            shadowColor: 'transparent', // Remove shadow on iOS
+          },
+          headerTintColor: 'white',
+        }}>
 
           <Tabs.Screen
-            name="HomePage"
+            name="Home"
             component={HomePage}
             options={{
               tabBarIcon: ({ size }) => (
@@ -82,9 +85,7 @@ const App = () => {
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons
-                name='md-game-controller-outline'
-                size={size}
-                color='white'
+                name='md-people-outline' size={size} color='white'
               />
             ),
           }}
@@ -94,7 +95,7 @@ const App = () => {
           component={Event}
           options={{
             tabBarIcon: ({ size }) => (
-              <Ionicons name='md-search' size={size} color='white' />
+              <Ionicons name='md-game-controller-outline' size={size} color='white' />
             ),
           }}
         ></Tabs.Screen>
@@ -119,7 +120,7 @@ const App = () => {
             }}
           />
 
-        </Tabs.Navigator>
+      </Tabs.Navigator>
     )
   }
 

@@ -9,7 +9,6 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   return (
-    
     <View style={styles.container}>
         {/* Profile Photo and User Info */}
         <View style={styles.profileContainer}>
@@ -23,8 +22,8 @@ const ProfileScreen = () => {
 
             {/* User Info */}
             <View style={styles.userInfoContainer}>
-            <Text style={styles.username}>James Smith</Text>
-            <View style={styles.countsContainer}>
+              <Text style={styles.username}>James Smith</Text>
+              <View style={styles.countsContainer}>
                 <View style={styles.countColumn}>
                 <Text style={styles.countsLabel}>120</Text>
                 <Text style={styles.counts}>Followers</Text>
@@ -33,7 +32,7 @@ const ProfileScreen = () => {
                 <Text style={styles.countsLabel}>50</Text>
                 <Text style={styles.counts}>Groups</Text>
                 </View>
-            </View>
+              </View>
             </View>
         </View>
 

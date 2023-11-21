@@ -14,8 +14,8 @@ const CardSlider = () => {
     const renderItem = ({ item }) => (
       <View>
         <Image
-            source={item.image}
-            style={{ width: 150, height: 150, borderRadius: 10, marginBottom: 10 }}
+          source={item.image}
+          style={{ width: 150, height: 150, borderRadius: 10, marginBottom: 10 }}
         />
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.text}>{item.heading}</Text>

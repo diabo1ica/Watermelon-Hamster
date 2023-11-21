@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 // watermelon-hamster-react-native\assets\homeImages\badmin.jpg
 const ColumnCardSlider = () => {
   const data = [
@@ -12,22 +12,24 @@ const ColumnCardSlider = () => {
   return (
     <View style={styles.column}>
       {data.map(element => (
-        <View key={element.id} style={styles.rowWrapper}>
-          <View style={styles.rowContent}>
-            <Image
-              source={element.image}
-              style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }}
-            />
-            <View>
-              <Text style={styles.title}>{element.title}</Text>
-              <Text style={styles.text}>{element.heading}</Text>
+        <TouchableOpacity key={element.id}>
+            <View style={styles.rowWrapper}>
+                <View style={styles.rowContent}>
+                    <Image
+                    source={element.image}
+                    style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }}
+                    />
+                    <View>
+                        <Text style={styles.title}>{element.title}</Text>
+                        <Text style={styles.text}>{element.heading}</Text>
+                    </View>
+                </View>
+                <Image
+                source={require('../../assets/arrow.png')}
+                style={styles.rowIcon}
+                />
             </View>
-          </View>
-            <Image
-              source={require('../../assets/arrow.png')}
-              style={styles.rowIcon}
-            />
-        </View>
+        </TouchableOpacity>
       ))}
     </View>
   );
