@@ -7,6 +7,7 @@
 export const firebaseConfig = {
   apiKey: "AIzaSyDLwsyQaj-HZpA4MlyP6o1GtY-yKHMNRfU",
   authDomain: "reallife-ngen.firebaseapp.com",
+  databaseURL: "https://reallife-ngen-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "reallife-ngen",
   storageBucket: "reallife-ngen.appspot.com",
   messagingSenderId: "664667536981",
