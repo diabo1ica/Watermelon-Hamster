@@ -10,44 +10,44 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-        {/* Profile Photo and User Info */}
+      {/* Profile Photo and User Info */}
         <View style={styles.profileContainer}>
-            {/* Profile Photo */}
-            <View style={styles.profilePhotoContainer}>
-            <Image
-                style={styles.profilePhoto}
-                source={require('../assets/badmin.jpg')} // Update with the actual path to profile photo
-            />
-            </View>
+          {/* Profile Photo */}
+          <View style={styles.profilePhotoContainer}>
+          <Image
+            style={styles.profilePhoto}
+            source={require('../assets/badmin.jpg')} // Update with the actual path to profile photo
+          />
+          </View>
 
-            {/* User Info */}
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.username}>James Smith</Text>
-              <View style={styles.countsContainer}>
-                <View style={styles.countColumn}>
-                <Text style={styles.countsLabel}>120</Text>
-                <Text style={styles.counts}>Followers</Text>
-                </View>
-                <View style={styles.countColumn}>
-                <Text style={styles.countsLabel}>50</Text>
-                <Text style={styles.counts}>Groups</Text>
-                </View>
+          {/* User Info */}
+          <View style={styles.userInfoContainer}>
+            <Text style={styles.username}>James Smith</Text>
+            <View style={styles.countsContainer}>
+              <View style={styles.countColumn}>
+              <Text style={styles.countsLabel}>120</Text>
+              <Text style={styles.counts}>Followers</Text>
+              </View>
+              <View style={styles.countColumn}>
+              <Text style={styles.countsLabel}>50</Text>
+              <Text style={styles.counts}>Groups</Text>
               </View>
             </View>
+          </View>
         </View>
 
         {/* Edit Profile Button */}
         <View style={styles.editProfileButtonContainer}>
-            <Button
-            title="Edit Profile"
-            onPress={() => navigation.navigate('EditProfilePage')}
-            color="#3897f1" // Instagram blue color
-            />
+          <Button
+          title="Edit Profile"
+          onPress={() => navigation.navigate('EditProfilePage')}
+          color="#3897f1" // Instagram blue color
+        />
         </View>
         <ScrollView style={styles.container}>
         <Text style={styles.componentTitle}>{'Your Groups'}</Text>
         <ColumnCardSlider/>
-        </ScrollView>
+      </ScrollView>
     </View>
     
   );

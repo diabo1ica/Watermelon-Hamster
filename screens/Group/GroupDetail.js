@@ -1,12 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, ScrollView, TouchableOpacity } from "react-native";
+import { 
+	View, 
+	Text,
+	StyleSheet, 
+	ImageBackground, 
+	ScrollView, 
+	TouchableOpacity,
+	Image } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
+import EventCard from '../../components/EventCard';
 
 const GroupDetail = ({ route, navigation }) => {
 	const { group } = route.params;
 	const upcomingEvents = group.events || []; // Assuming that the events are stored in the group object
-	console.log('here are the events');
-	console.log(upcomingEvents);
+	console.log(Object.entries(group.events));
 
 	return (
 		<ScrollView style={{backgroundColor: "#1A1A1A" }}>
@@ -48,9 +55,31 @@ const GroupDetail = ({ route, navigation }) => {
 					</View>
 				) : (
 					<View>
-						<Text>Hello</Text>
 						{/* iterate through upcoming events */}
 						
+						{Object.entries(group.events).map(([key, event]) => (
+							<View>
+								<EventCard
+									key={key}
+									title={event.name}
+									location={event.location}
+									description={event.description}
+									startDateString={event.startDateString}
+									endDateString={event.endDateString}
+									image={event.image}
+									onPress={() => {
+										navigation.navigate("EventDetails", { 
+											title: event.name, 
+											location: event.location, 
+											description: event.description, 
+											startDateString: event.starDateString, 
+											endDateString: event.endDateString, 
+											image: event.image 
+										})}
+									}
+								/>
+							</View>
+						))}
 
 					</View>
 				)}
@@ -114,6 +143,13 @@ const styles = StyleSheet.create({
         color: "rgba(255, 255, 255, 0.75)",
         fontSize: 16,
     },
+		groupEvent: {
+			backgroundColor: 'grey',
+			marginBottom: 10,
+			display: 'flex',
+			flexDirection: 'row',
+			justifyContent: 'space-between'
+		}
 });
 
 export default GroupDetail;

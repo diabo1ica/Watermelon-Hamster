@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 
 import { Button, NativeModules, Text, TextInput, View, StyleSheet, ScrollView } from 'react-native';
 import EventCard from '../components/EventCard';
+import { ref, onValue } from 'firebase/database';
+import { db } from '../components/AuthUtils';
+
 
 export default function Events({ route, navigation }) {
 	// console.log(`params: ${route.params}`);
@@ -10,6 +13,37 @@ export default function Events({ route, navigation }) {
 
 	const [events, setEvents] = React.useState([]);
 	const [zeroEvents, setZeroEvents] = React.useState(false);
+
+	const [groups, setGroups] = React.useState([]);
+
+	// get the groups data
+	React.useEffect(() => {
+    const groupsRef = ref(db, 'groups');
+
+    // Use the 'onValue' function to listen for changes to the data
+    const unsubscribe = onValue(groupsRef, (snapshot) => {
+      const groupsData = [];
+
+      // Check if the snapshot exists and has children
+      if (snapshot.exists()) {
+        // Loop through the snapshot and extract the data
+        snapshot.forEach((childSnapshot) => {
+          const group = childSnapshot.val();
+          groupsData.push({ id: childSnapshot.key, ...group });
+        });
+
+        // Update the state with the fetched data
+        // console.log(groupsData);
+        setGroups(groupsData);
+				console.log(groups);
+      }
+    });
+
+    // Return a cleanup function to unsubscribe when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
 	React.useEffect(() => {
 		if (newEvent && eventData) {
@@ -28,17 +62,9 @@ export default function Events({ route, navigation }) {
 		}
 	}, [events])
 
-	// React.useEffect(() => {
-	// 	navigation.setOptions({
-	// 		headerRight: () => (
-	// 			<Button
-	// 				onPress={() => navigation.navigate("CreateEvent")}
-	// 				title="+"
-	// 				accessibilityLabel="Create an event"
-	// 			/>
-	// 		),
-	// 	});
-	// }, [navigation]);
+	// the thing is:
+	// 1. iterate through groups (firebase)
+	// 2. in each of that group display all of the events
 
 	return (
 		<View style={styles.main}>
@@ -58,21 +84,32 @@ export default function Events({ route, navigation }) {
 			</View>
 			<View style={styles.content}>
 				<ScrollView style={styles.scrollView}>
-					{zeroEvents ? (
+					{groups.length === 0 ? (
 						<Text style={styles.noEventsText}>There is currently no events!!</Text>
 					) : (
-						events.map(({ title, location, description, startDateString, endDateString, image }, idx) => (
-							<EventCard
-								key={idx}
-								title={title}
-								location={location}
-								description={description}
-								startDateString={startDateString}
-								endDateString={endDateString}
-								image={image}
-								onPress={() => navigation.navigate("EventDetails", { title, location, description, startDateString, endDateString, image} )}
-							/>
-						))
+						Object.entries(groups).map(([key, group]) =>
+							Object.entries(group.events).map(([eventKey, event]) => (
+								<View>
+									<EventCard
+										key={eventKey}
+										title={event.title}
+										location={event.location}
+										description={event.description}
+										startDateString={event.startDateString}
+										endDateString={event.endDateString}
+										image={event.image}
+										onPress={() => navigation.navigate("EventDetails", { 
+											title: event.title, 
+											location: event.location, 
+											description: event.description, 
+											startDateString: event.startDateString, 
+											endDateString: event.endDateString, 
+											image: event.image 
+										})}
+									/>
+								</View>
+							))
+						)
 					)}
 				</ScrollView> 
 			</View>
