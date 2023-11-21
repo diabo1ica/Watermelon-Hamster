@@ -2,54 +2,56 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
+const GroupDetail = ({ route, navigation }) => {
+	const { group } = route.params;
+	const upcomingEvents = group.upcomingEvents || []; // Assuming that the events are stored in the group object
 
-const GroupDetail = ({ route }) => {
-    const { group } = route.params;
-    const upcomingEvents = group.upcomingEvents || []; // Assuming that the events are stored in the group object
-
-    return (
-        <ScrollView style={{backgroundColor: "#1A1A1A" }}>
-            <ImageBackground
-                source={{ uri: `data:image/jpeg;base64,${group.image}` }}
-                style={styles.backgroundImage}
-            >
-                <LinearGradient
-                    colors={['rgba(26,26,26,0.5)', 'rgba(26,26,26,1)']}
-                    style={styles.overlay}
-                >
-                    <View style={styles.container}>
-                        <View style={styles.header}>
-                            <Text style={styles.header1}>{group.name}</Text>
-                        </View>
-                        <View style={styles.locationInfo}>
-                            <Text style={styles.groupInfoText}>📍{' '}{group.location}</Text>
-                        </View>
-                        <View style={styles.locationInfo}>
-                            <Text style={styles.groupInfoText}>{group.description}</Text>
-                        </View>
-                    </View>
-                </LinearGradient>
-            </ImageBackground>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.header1}>Upcoming Events</Text>
-                    <TouchableOpacity style={styles.noAccount}>
-                        <Text style={styles.whiteText}>+ Create Event</Text>
-                    </TouchableOpacity>
-                </View>
-                {upcomingEvents.length === 0 ? (
-                    <View style={styles.noEventsContainer}>
-                        <Text style={styles.noEventsText}>No upcoming events. {'\n'}
-                        Check back later!</Text>
-                    </View>
-                ) : (
-                    <View>
-                        <Text>Hello</Text>
-                    </View>
-                )}
-            </View>
-        </ScrollView>
-    );
+	return (
+		<ScrollView style={{backgroundColor: "#1A1A1A" }}>
+			<ImageBackground
+				source={{ uri: `data:image/jpeg;base64,${group.image}` }}
+				style={styles.backgroundImage}
+			>
+				<LinearGradient
+					colors={['rgba(26,26,26,0.5)', 'rgba(26,26,26,1)']}
+					style={styles.overlay}
+				>
+					<View style={styles.container}>
+						<View style={styles.header}>
+							<Text style={styles.header1}>{group.name}</Text>
+						</View>
+						<View style={styles.locationInfo}>
+								<Text style={styles.groupInfoText}>📍{' '}{group.location}</Text>
+						</View>
+						<View style={styles.locationInfo}>
+							<Text style={styles.groupInfoText}>{group.description}</Text>
+						</View>
+					</View>
+				</LinearGradient>
+			</ImageBackground>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<Text style={styles.header1}>Upcoming Events</Text>
+					<TouchableOpacity 
+						style={styles.noAccount}
+						onPress={() => navigation.navigate("CreateEvent", { group })}
+					>
+						<Text style={styles.whiteText}>+ Create Event</Text>
+					</TouchableOpacity>
+				</View>
+				{upcomingEvents.length === 0 ? (
+					<View style={styles.noEventsContainer}>
+						<Text style={styles.noEventsText}>No upcoming events. {'\n'}
+						Check back later!</Text>
+					</View>
+				) : (
+					<View>
+						<Text>Hello</Text>
+					</View>
+				)}
+			</View>
+		</ScrollView>
+	);
 }
 
 const styles = StyleSheet.create({

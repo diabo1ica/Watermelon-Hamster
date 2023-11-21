@@ -2,15 +2,71 @@ import * as React from "react";
 import { TextInput, View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from '@react-navigation/native';
+import * as Progress from 'react-native-progress';
 
-export default function CreateEvent({ navigation, setRunEffect }) {
+import {
+	ref,
+	push,
+	set,
+	serverTimestamp,
+} from 'firebase/database';
 
+import { db } from '../components/AuthUtils';
+
+export default function CreateEvent({ route, navigation }) {
+
+	const { group } = route.params
+	// console.log(group.events);
+
+	// const navigation = useNavigation();
 	const [title, setTitle] = React.useState('');
 	const [location, setLocation] = React.useState('');
 	const [startDate, setStartDate] = React.useState(new Date());
 	const [endDate, setEndDate] = React.useState(new Date());
 	const [description, setDescription] = React.useState('');
 	const [image, setImage] = React.useState(null);
+
+	const [loading, setLoading] = React.useState(false);
+	const eventRef = ref(db, 'groups/' + group.id + '/events' );
+
+	const handleCreateEvent = async () => {
+    try {
+      if (!title || !location || !startDate || !endDate || !description || !image) {
+        Alert.alert(
+          'Incomplete Form',
+          'Please fill in all the required fields'
+        );
+        return;
+      }
+
+      setLoading(true);
+
+      const newEventRef = push(eventRef);
+
+      const eventData = {
+        name: title,
+        location: location,
+				startDate: startDate,
+				endDate: endDate,
+        description: description,
+        image: image,
+        createdAt: serverTimestamp(),
+      };
+
+      await set(newEventRef, eventData);
+
+      setLoading(false);
+
+      Alert.alert('Success', 'Group created successfully.');
+
+      navigation.navigate('Events');
+    } catch (error) {
+      console.error(error.message);
+      setLoading(false);
+      Alert.alert('Error', 'Failed to create the group. Please try again.');
+    }
+  };
 
 	const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -19,6 +75,7 @@ export default function CreateEvent({ navigation, setRunEffect }) {
     });
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+			// setImage(result.base64)
     }
   };
 
@@ -37,19 +94,23 @@ export default function CreateEvent({ navigation, setRunEffect }) {
 
 	const onChangeStartDate = (event, selectedDate) => {
     const currentDate = selectedDate || startDate;
-    // setShow(Platform.OS === 'ios');
-    // setStartDate(currentDate);
-		console.log(currentDate);
-		setStartDateString(formatDate(currentDate))
+    setStartDateString(formatDate(currentDate))
+		console.log(startDateString);
   };
 
 	const onChangeEndDate = (event, selectedDate) => {
-    const currentDate = selectedDate || endDate;
-    // setShow(Platform.OS === 'ios');
-		console.log(currentDate);
-		setEndDateString(formatDate(currentDate))
-    // setEndDate(currentDate);
+    const currentDate = selectedDate || startDate;
+    setEndDateString(formatDate(currentDate))
+		console.log(endDateString);
   };
+
+	// const onChangeEndDate = (selectedDate) => {
+  //   const currentDate = selectedDate || endDate;
+  //   // setShow(Platform.OS === 'ios');
+	// 	console.log(currentDate);
+	// 	setEndDateString(formatDate(currentDate))
+  //   // setEndDate(currentDate);
+  // };
 
 	const handleUploadPress = () => {
 		pickImage();
@@ -154,8 +215,6 @@ export default function CreateEvent({ navigation, setRunEffect }) {
 				<Button
 					style={{ flex: 1 }}
 					title="Cancel"
-					// if cancel just go back without passing anything
-					// event page shoulkd knwo if null inputs then no events made, move on
 					color='white'
 					onPress={() => navigation.navigate("Events", {
 						newEvent: false,
@@ -166,7 +225,14 @@ export default function CreateEvent({ navigation, setRunEffect }) {
 					style={{ flex: 1 }}
 					title="Submit"
 					color='white'
+					// onPress={() => {
+					// 	navigation.navigate("Events", { 
+					// 		newEvent: true,
+					// 		eventData: { title, location, startDateString, endDateString, description, image }
+					// 	});
+					// }}
 					onPress={() => {
+						handleCreateEvent();
 						navigation.navigate("Events", { 
 							newEvent: true,
 							eventData: { title, location, startDateString, endDateString, description, image }

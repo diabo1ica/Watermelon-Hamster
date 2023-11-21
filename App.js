@@ -164,10 +164,23 @@ const App = () => {
                 headerTintColor: 'white',
                 headerShown: true,
                 headerRight: () => {
-                    <LogoutButton onPress={() => handleLogout()} />
+                  <LogoutButton onPress={() => handleLogout()} />
                 }
               }}
             />
+
+            <Stack.Screen
+              name="EventDetails"
+              component={EventDetails}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTintColor: 'white',
+                headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />
+              }}
+            />
+
             <Stack.Screen
               name='CreateGroup'
               component={CreateGroup}
@@ -182,16 +195,16 @@ const App = () => {
             />
 
             <Stack.Screen
-            name='GroupDetail'
-            component={GroupDetail}
-            options={{
-              headerStyle: {
-                backgroundColor: 'rgb(46,46,46)',
-              },
-              headerTitle: 'Group Detail',
-              headerTintColor: 'white',
-              headerBackTitle: 'Groups'
-            }}
+              name='GroupDetail'
+              component={GroupDetail}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Group Detail',
+                headerTintColor: 'white',
+                headerBackTitle: 'Groups'
+              }}
             />
           </Stack.Navigator>
         ) : (

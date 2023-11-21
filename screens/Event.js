@@ -4,7 +4,7 @@ import { Button, NativeModules, Text, TextInput, View, StyleSheet, ScrollView } 
 import EventCard from '../components/EventCard';
 
 export default function Events({ route, navigation }) {
-	console.log(`params: ${route.params}`);
+	// console.log(`params: ${route.params}`);
 	// 
 	const { newEvent, eventData } = route.params ?? {};
 
@@ -28,17 +28,17 @@ export default function Events({ route, navigation }) {
 		}
 	}, [events])
 
-	React.useEffect(() => {
-		navigation.setOptions({
-			headerRight: () => (
-				<Button
-					onPress={() => navigation.navigate("CreateEvent")}
-					title="+"
-					accessibilityLabel="Create an event"
-				/>
-			),
-		});
-	}, [navigation]);
+	// React.useEffect(() => {
+	// 	navigation.setOptions({
+	// 		headerRight: () => (
+	// 			<Button
+	// 				onPress={() => navigation.navigate("CreateEvent")}
+	// 				title="+"
+	// 				accessibilityLabel="Create an event"
+	// 			/>
+	// 		),
+	// 	});
+	// }, [navigation]);
 
 	return (
 		<View style={styles.main}>
