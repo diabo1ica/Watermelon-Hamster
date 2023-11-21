@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-const EventCard = ({ title, location, description, image, onPress }) => {
+const EventCard = ({ title, location, description, image, startDate, endDate, ticketPrice, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Image 

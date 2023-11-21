@@ -56,7 +56,7 @@ const GroupDetail = ({ route, navigation }) => {
 					<View>
 						{Object.entries(group.events).map(([key, event]) => (
 							<View>
-								<EventCard
+								{/* <EventCard
 									key={key}
 									title={event.name}
 									location={event.location}
@@ -74,6 +74,24 @@ const GroupDetail = ({ route, navigation }) => {
 											image: event.image 
 										})}
 									}
+								/> */}
+								<EventCard
+									title={event.name}
+									location={event.location}
+									description={event.description}
+									startDate={event.startDate}
+									endDate={event.endDate}
+									image={event.image}
+									price={event.price}
+									onPress={() => navigation.navigate("EventDetails", { 
+										title: event.name, 
+										location: event.location, 
+										description: event.description, 
+										startDate: event.startDate, 
+										endDate: event.endDate, 
+										image: event.image,
+										price: event.price
+									})}
 								/>
 							</View>
 						))}

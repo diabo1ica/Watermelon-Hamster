@@ -65,22 +65,25 @@ export default function Events({ navigation }) {	//
 					) : (
 						Object.entries(groups).map(([key, group]) => {
 							if (group.events && typeof group.events === 'object') {
+								console.log(group.events);
 								return Object.entries(group.events).map(([eventKey, event]) => (
 									<View key={eventKey}>
 										<EventCard
 											title={event.name}
 											location={event.location}
 											description={event.description}
-											startDateString={event.startDateString}
-											endDateString={event.endDateString}
+											startDate={event.startDate}
+											endDate={event.endDate}
 											image={event.image}
+											price={event.price}
 											onPress={() => navigation.navigate("EventDetails", { 
-												title: event.title, 
+												title: event.name, 
 												location: event.location, 
 												description: event.description, 
-												startDateString: event.startDateString, 
-												endDateString: event.endDateString, 
-												image: event.image 
+												startDate: event.startDate, 
+												endDate: event.endDate, 
+												image: event.image,
+												price: event.price
 											})}
 										/>
 									</View>

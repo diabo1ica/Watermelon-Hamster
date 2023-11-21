@@ -11,7 +11,6 @@ import {
 	ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
-import { useNavigation } from '@react-navigation/native';
 
 import {
 	ref,
@@ -38,7 +37,12 @@ export default function CreateEvent({ route, navigation }) {
 
 	const handleCreateEvent = async () => {
     try {
-      if (!title || !location || !startDateString || !endDateString || !description || !image) {
+      if (!title || 
+				!location || 
+				!startDateString || 
+				!endDateString || 
+				!description || 
+				!image) {
         Alert.alert(
           'Incomplete Form',
           'Please fill in all the required fields'
@@ -89,7 +93,7 @@ export default function CreateEvent({ route, navigation }) {
 		const options = { year: 'numeric', month: 'long', day: 'numeric' };
 		return date.toLocaleDateString(undefined, options);
 	}
-
+	
 	const [startDateString, setStartDateString] = React.useState('');
 	const [endDateString, setEndDateString] = React.useState('');
 
