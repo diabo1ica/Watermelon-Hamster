@@ -3,7 +3,6 @@ import React from 'react';
 import { View, Text, Button, Image, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ColumnCardSlider from '../components/HomeComponents/ColumnCardSlider';
-import CardSlider from '../components/HomeComponents/CardSlider';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -11,45 +10,46 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       {/* Profile Photo and User Info */}
-        <View style={styles.profileContainer}>
-          {/* Profile Photo */}
-          <View style={styles.profilePhotoContainer}>
+      <View style={styles.profileContainer}>
+        {/* Profile Photo */}
+        <View style={styles.profilePhotoContainer}>
           <Image
             style={styles.profilePhoto}
-            source={require('../assets/badmin.jpg')} // Update with the actual path to profile photo
+            source={require('../assets/badmin.jpg')}
           />
-          </View>
+        </View>
 
-          {/* User Info */}
-          <View style={styles.userInfoContainer}>
-            <Text style={styles.username}>James Smith</Text>
-            <View style={styles.countsContainer}>
-              <View style={styles.countColumn}>
+        {/* User Info */}
+        <View style={styles.userInfoContainer}>
+          <Text style={styles.username}>James Smith</Text>
+          <View style={styles.countsContainer}>
+            <View style={styles.countColumn}>
               <Text style={styles.countsLabel}>120</Text>
               <Text style={styles.counts}>Followers</Text>
-              </View>
-              <View style={styles.countColumn}>
+            </View>
+            <View style={styles.countColumn}>
               <Text style={styles.countsLabel}>50</Text>
               <Text style={styles.counts}>Groups</Text>
-              </View>
             </View>
           </View>
         </View>
+      </View>
 
-        {/* Edit Profile Button */}
-        <View style={styles.editProfileButtonContainer}>
-          <Button
+      {/* Edit Profile Button */}
+      <View style={styles.editProfileButtonContainer}>
+        <Button
           title="Edit Profile"
           onPress={() => navigation.navigate('EditProfilePage')}
-          color="#3897f1" // Instagram blue color
+          color="white"
         />
-        </View>
-        <ScrollView style={styles.container}>
+      </View>
+
+      {/* ScrollView for Groups */}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.componentTitle}>{'Your Groups'}</Text>
-        <ColumnCardSlider/>
+        <ColumnCardSlider />
       </ScrollView>
     </View>
-    
   );
 };
 
@@ -62,13 +62,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#1A1A1A'
+    backgroundColor: '#1A1A1A',
   },
   profileContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    maxWidth: '100%', // Ensure that the container does not exceed the screen width
+    width: '100%', 
+    paddingHorizontal: 16, 
     marginVertical: 20,
   },
   profilePhotoContainer: {
@@ -80,21 +81,21 @@ const styles = StyleSheet.create({
     borderRadius: 75,
   },
   userInfoContainer: {
-    alignItems: 'flex-start',
+    flex: 1, 
+    alignItems: 'center',
     marginTop: 20,
   },
   username: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
-    alignItems: 'center',
     marginBottom: 5,
   },
   countsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    width: '100%',
     marginTop: 20,
+    width: '100%',
   },
   countColumn: {
     alignItems: 'center',
@@ -109,15 +110,12 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   editProfileButtonContainer: {
-    marginTop: 20,
-    width: '50%',
-    borderRadius: 5,
+    marginTop: 10,
+    width: '30%',
+    borderRadius: 20,
     overflow: 'hidden',
-  },
-  container: {
-    height: '100%',
-    padding: 10,
-    backgroundColor: '#1A1A1A',
+    backgroundColor: 'rgb(241, 71, 248)',
+    marginBottom: 20,
   },
   componentTitle: {
     color: 'white',
@@ -125,7 +123,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: 22,
     marginBottom: 15,
-  }
+  },
 });
 
 export default ProfileScreen;
+
