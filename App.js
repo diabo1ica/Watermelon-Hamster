@@ -17,7 +17,8 @@ import { signOut } from 'firebase/auth'; // Import the appropriate function from
 import LogoutButton from './components/LogoutButton';
 
 import MyGroups from './screens/Group/MyGroups';
-import CreateGroup from './screens/Group/CreateGroup'; // Import CreateGroups
+import CreateGroup from './screens/Group/CreateGroup';
+import GroupDetail from './screens/Group/GroupDetail';
 
 import HomePage from './screens/HomePage';
 import CreateEvent from './screens/CreateEvent';
@@ -175,6 +176,19 @@ const App = () => {
                 headerTintColor: 'white',
                 headerBackTitle: 'Groups'
               }}
+            />
+
+            <Stack.Screen
+            name='GroupDetail'
+            component={GroupDetail}
+            options={{
+              headerStyle: {
+                backgroundColor: 'rgb(46,46,46)',
+              },
+              headerTitle: 'Group Detail',
+              headerTintColor: 'white',
+              headerBackTitle: 'Groups'
+            }}
             />
           </Stack.Navigator>
         ) : (
