@@ -11,6 +11,7 @@ import SignUp from './screens/SignUp';
 import Event from './screens/Event';
 import EventDetails from './screens/EventDetails';
 import HomePage from './screens/HomePage'
+import EditProfilePage from './screens/EditProfilePage';
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -24,6 +25,7 @@ import GroupDetail from './screens/Group/GroupDetail';
 
 import CreateEvent from './screens/CreateEvent';
 import ProfileScreen from './screens/ProfilePage';
+import SearchPage from './screens/SearchPage';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -104,7 +106,7 @@ const App = () => {
 
         <Tabs.Screen
           name='Search'
-          component={Event}
+          component={SearchPage}
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons name='md-search' size={size} color='white' />
@@ -204,6 +206,28 @@ const App = () => {
                 headerTitle: 'Group Detail',
                 headerTintColor: 'white',
                 headerBackTitle: 'Groups'
+              }}
+            />
+            <Stack.Screen
+              name='EditProfilePage'
+              component={EditProfilePage}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Edit Profile',
+                headerTintColor: 'white',
+              }}
+            />
+            <Stack.Screen
+              name='ProfilePage'
+              component={ProfileScreen}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Profile',
+                headerTintColor: 'white',
               }}
             />
           </Stack.Navigator>

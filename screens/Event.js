@@ -46,16 +46,16 @@ export default function Events({ navigation }) {	//
 		<View style={styles.main}>
 			<View style={styles.topBar}>
 				<View style={styles.buttonTop}>
-					<Button title='Top' color='white' />
+					<Button title='Top' color='#AF66CC' />
 				</View>
 				<View style={styles.buttonTop}>
-					<Button title='Local' color='white'/>
+					<Button title='Local' color='#AF66CC'/>
 				</View>
 				<View style={styles.buttonTop}>
-					<Button title='This Week' color='white'/>
+					<Button title='This Week' color='#AF66CC'/>
 				</View>
 				<View style={styles.buttonTop}>
-					<Button title='My Events' color='white'/>
+					<Button title='My Events' color='#AF66CC'/>
 				</View>
 			</View>
 			<View style={styles.content}>

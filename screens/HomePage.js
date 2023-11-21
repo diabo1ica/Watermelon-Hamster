@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import CardSlider from '../components/HomeComponents/CardSlider';
 import ColumnCardSlider from '../components/HomeComponents/ColumnCardSlider';
 
-const HomePage = () => {
+const HomePage = ( { navigation }) => {
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.componentTitle}>{'Events Near You'}</Text>
-      <CardSlider/>
+      <CardSlider navigation={navigation}/>
       <Text style={styles.componentTitle}>{'New Group Recomendations'}</Text>
-      <ColumnCardSlider/>
-    </ScrollView>
+      <ColumnCardSlider navigation={navigation}/>
+    </View>
   );
 };
 

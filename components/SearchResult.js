@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native';
 import { ref, onValue } from 'firebase/database';
-import { db } from '../../components/AuthUtils';
+import { db } from '../components/AuthUtils';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-const ColumnCardSlider = ({ navigation }) => {
+const SearchResult = ({ navigation }) => {
     const [groups, setGroups] = React.useState([]);
 
     const navigateToGroupDetail = (group) => {
@@ -42,64 +44,66 @@ const ColumnCardSlider = ({ navigation }) => {
             data={groups}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-                <View style={styles.column}>
+                <View>
                     <TouchableOpacity onPress={() => navigateToGroupDetail(item)}>
-                        <View style={styles.rowWrapper}>
-                            <View style={styles.rowContent}>
-                                <Image
-                                    source={{ uri: `data:image/jpeg;base64,${item.image}` }}
-                                    style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }}
-                                />
-                                <View>
+                        <View style={styles.cardWrapper}>
+                            <Image
+                                style={styles.imageWrapper}
+                                source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+                            />
+                            <View style={styles.bannerWrapper}>
+                                <View style={styles.textBoxWrapper}>
                                     <Text style={styles.title}>{item.name}</Text>
                                     <Text style={styles.text}>{item.description}</Text>
                                 </View>
+                                <Ionicons name='md-arrow-forward' size={40} style={styles.icon}/>
                             </View>
-                            <Image
-                                source={require('../../assets/arrow.png')}
-                                style={styles.rowIcon}
-                            />
                         </View>
                     </TouchableOpacity>
                 </View>
             )}
         />
     );
-};
+}
 
 const styles = StyleSheet.create({
-    column: {
-        flexDirection: 'column',
+    cardWrapper: {
+        width: 350,
+        height: 270,
+        marginTop: 8,
+        marginBottom: 8,
     },
-    rowContent: {
+    imageWrapper: {
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        height: 180,
+    },
+    bannerWrapper: {
         flexDirection: 'row',
-        alignItems: 'center'
-    },
-    rowIcon: {
-        width: 30,
-        height: 30,
-        justifyContent: 'center'
-    },
-    rowWrapper: {
-        flexDirection: 'row',
-        height: 90,
-        marginTop: 5,
-        marginBottom: 5,
-        borderColor: 'rgba(122, 122, 122, 0.25)',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        borderTopWidth: 2,
+        backgroundColor: '#333333',
+        alignItems: 'center',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        height: 90,
+    },
+    textBoxWrapper: {
+        marginLeft: 10
+    },
+    icon: {
+        color: 'white',
+        marginRight: 10,
     },
     title: {
         color: 'white',
-        fontSize: 19,
+        fontSize: 17,
         fontWeight: 'bold',
         lineHeight: 22,
     },
     text: {
-        color: 'rgba(255, 255, 255, 0.75)',
+        color: 'rgba(255, 255, 255, 0.6)',
         fontSize: 12,
     },
 });
 
-export default ColumnCardSlider;
+export default SearchResult;

@@ -61,6 +61,7 @@ export default function CreateEvent({ route, navigation }) {
 				endDate: endDateString,
         description: description,
         image: image,
+				price: ticketPrice,
         createdAt: serverTimestamp(),
       };
       await set(newEventRef, eventData);
