@@ -19,6 +19,7 @@ import LogoutButton from './components/LogoutButton';
 import MyGroups from './screens/Group/MyGroups';
 import CreateGroup from './screens/Group/CreateGroup'; // Import CreateGroups
 
+import HomePage from './screens/HomePage';
 import CreateEvent from './screens/CreateEvent';
 
 const Stack = createNativeStackNavigator();
@@ -50,30 +51,30 @@ const App = () => {
 
   const BottomTabs = () => {
     return (
-      <Tabs.Navigator
-        screenOptions={{
-          headerShown: true,
-          tabBarStyle: {
-            backgroundColor: 'rgb(46,46,46)',
-            color: 'white',
-          },
-          tabBarActiveTintColor: 'white',
-          tabBarInactiveTintColor: 'white',
-          headerStyle: {
-            backgroundColor: 'rgb(46,46,46)',
-          },
-          headerTintColor: 'white',
-        }}
-      >
-        <Tabs.Screen
-          name='Home'
-          component={Event}
-          options={{
-            tabBarIcon: ({ size }) => (
-              <Ionicons name='md-home-outline' size={size} color='white' />
-            ),
-          }}
-        ></Tabs.Screen>
+        <Tabs.Navigator 
+          screenOptions={{ 
+            headerShown: true,
+            tabBarStyle: {
+              backgroundColor: 'rgb(46,46,46)',
+            },
+            tabBarActiveTintColor: 'white',
+            tabBarInactiveTintColor: 'white', 
+            headerStyle: {
+              backgroundColor: 'rgb(46,46,46)',
+            },
+          }}>
+
+          <Tabs.Screen
+            name="HomePage"
+            component={HomePage}
+            options={{
+              tabBarIcon: ({ size }) => (
+                <Ionicons name="md-home-outline" size={size} color="white" />
+              ),
+              
+            }}
+          >
+          </Tabs.Screen>
 
         <Tabs.Screen
           name='Groups'
@@ -138,7 +139,7 @@ const App = () => {
         {showHomeScreen ? (
           <Stack.Navigator>
             <Stack.Screen
-              name='Home'
+              name="HomePage"
               component={BottomTabs}
               options={{
                 headerStyle: {
@@ -157,9 +158,12 @@ const App = () => {
                 },
                 headerTitle: 'Create an Event',
                 headerTintColor: 'white',
+                headerShown: true,
+                headerRight: () => {
+                    <LogoutButton onPress={() => handleLogout()} />
+                }
               }}
             />
-
             <Stack.Screen
               name='CreateGroup'
               component={CreateGroup}
