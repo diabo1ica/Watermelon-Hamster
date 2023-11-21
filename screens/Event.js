@@ -87,29 +87,33 @@ export default function Events({ route, navigation }) {
 					{groups.length === 0 ? (
 						<Text style={styles.noEventsText}>There is currently no events!!</Text>
 					) : (
-						Object.entries(groups).map(([key, group]) =>
-							Object.entries(group.events).map(([eventKey, event]) => (
-								<View>
-									<EventCard
-										key={eventKey}
-										title={event.title}
-										location={event.location}
-										description={event.description}
-										startDateString={event.startDateString}
-										endDateString={event.endDateString}
-										image={event.image}
-										onPress={() => navigation.navigate("EventDetails", { 
-											title: event.title, 
-											location: event.location, 
-											description: event.description, 
-											startDateString: event.startDateString, 
-											endDateString: event.endDateString, 
-											image: event.image 
-										})}
-									/>
-								</View>
-							))
-						)
+						Object.entries(groups).map(([key, group]) => {
+							if (group.events && typeof group.events === 'object') {
+								return Object.entries(group.events).map(([eventKey, event]) => (
+									<View key={eventKey}>
+										<EventCard
+											title={event.name}
+											location={event.location}
+											description={event.description}
+											startDateString={event.startDateString}
+											endDateString={event.endDateString}
+											image={event.image}
+											onPress={() => navigation.navigate("EventDetails", { 
+												title: event.title, 
+												location: event.location, 
+												description: event.description, 
+												startDateString: event.startDateString, 
+												endDateString: event.endDateString, 
+												image: event.image 
+											})}
+										/>
+									</View>
+								));
+							} else {
+								// Skip or return null, or render a placeholder, etc.
+								return null;
+							}
+						})
 					)}
 				</ScrollView> 
 			</View>

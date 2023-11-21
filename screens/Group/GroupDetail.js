@@ -13,7 +13,6 @@ import EventCard from '../../components/EventCard';
 const GroupDetail = ({ route, navigation }) => {
 	const { group } = route.params;
 	const upcomingEvents = group.events || []; // Assuming that the events are stored in the group object
-	console.log(Object.entries(group.events));
 
 	return (
 		<ScrollView style={{backgroundColor: "#1A1A1A" }}>
@@ -56,7 +55,6 @@ const GroupDetail = ({ route, navigation }) => {
 				) : (
 					<View>
 						{/* iterate through upcoming events */}
-						
 						{Object.entries(group.events).map(([key, event]) => (
 							<View>
 								<EventCard
