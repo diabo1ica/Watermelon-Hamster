@@ -9,7 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./screens/LoginPage";
 import SignUp from "./screens/SignUp";
 import Event from './screens/Event';
-import EventComponent from './components/EventComponent';
+import EventDetails from './screens/EventDetails';
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -58,6 +58,7 @@ const App = () => {
           tabBarInactiveTintColor: 'white', 
           headerStyle: {
             backgroundColor: 'rgb(46,46,46)',
+            shadowColor: 'transparent', // Remove shadow on iOS
           },
           headerTintColor: 'white',
         }}>
@@ -79,7 +80,7 @@ const App = () => {
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons
-                name='md-game-controller-outline' size={size} color='white'
+                name='md-people-outline' size={size} color='white'
               />
             ),
           }}
@@ -90,7 +91,7 @@ const App = () => {
           component={Event}
           options={{
             tabBarIcon: ({ size }) => (
-              <Ionicons name='md-search' size={size} color='white' />
+              <Ionicons name='md-game-controller-outline' size={size} color='white' />
             ),
           }}
         ></Tabs.Screen>
@@ -156,21 +157,20 @@ const App = () => {
                 },
                 headerTitle: 'Create an Event', 
                 headerTintColor: 'white',
+                headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />
               }}
-              options={{ headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />, }}
             />
 
             <Stack.Screen
-              name="EventComponent"
-              component={EventComponent}
+              name="EventDetails"
+              component={EventDetails}
               options={{
                 headerStyle: {
                   backgroundColor: 'rgb(46,46,46)',
                 },
-                headerTitle: 'Create an Event', 
                 headerTintColor: 'white',
+                headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />
               }}
-              options={{ headerShown: true, headerRight: () => <LogoutButton onPress={() => handleLogout()} />, }}
             />
           </Stack.Navigator>
 
