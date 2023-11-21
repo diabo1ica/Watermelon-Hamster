@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { Text, StyleSheet, View, TextInput } from 'react-native';
 
-const FormInputs = ({ placeholder, onChangeText}) => {
+const DescriptionInput = ({ placeholder, onChangeText }) => {
   return (
-    <>
-      <View style={styles.textInput}>
-        <View style={styles.label}>
-          <Text style={[styles.label1, styles.label1Typo]}>{placeholder}</Text>
-        </View>
-        <View style={styles.baseInputField}>
-          <TextInput
-            style={styles.inputPlaceholder}
-            onChangeText={onChangeText}
-          />
-        </View>
+    <View style={styles.textInput}>
+      <View style={styles.label}>
+        <Text style={[styles.label1, styles.label1Typo]}>{placeholder}</Text>
       </View>
-    </>
+      <View style={styles.baseInputField}>
+        <TextInput
+          style={styles.inputPlaceholder}
+          onChangeText={onChangeText}
+          multiline // Enable multiline
+          numberOfLines={4} // Adjust the number of visible lines as needed
+        />
+      </View>
+    </View>
   );
 };
 
@@ -42,12 +42,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 16,
     color: 'white',
+    textAlignVertical: 'top', // Align text to the top of the input
   },
   baseInputField: {
     alignSelf: 'stretch',
-    borderRadius: 100,
+    borderRadius: 20,
     backgroundColor: '#333333',
-    height: 48,
+    minHeight: 120, // Minimum height for the text area
+    paddingVertical: 10,
     marginTop: 4,
   },
   textInput: {
@@ -56,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FormInputs;
+export default DescriptionInput;

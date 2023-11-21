@@ -18,9 +18,8 @@ const SubmitButton = ({ text, onPress, disabled }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    width: 340,
+    width: 360,
     height: 46,
-    position: 'relative',
   },
   loginContainer: {
     position: 'absolute',

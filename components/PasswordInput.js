@@ -26,7 +26,7 @@ const PasswordInput = ({ placeholder, onChangeText }) => {
             <EyeSlashIcon
               name="eye-off"
               size={24}
-              color="black"
+              color="white"
               style={styles.eyeIcon}
               onPress={handleTogglePassword}
             />
@@ -34,7 +34,7 @@ const PasswordInput = ({ placeholder, onChangeText }) => {
             <EyeIcon
               name="eye"
               size={24}
-              color="black"
+              color="white"
               style={styles.eyeIcon}
               onPress={handleTogglePassword}
             />
@@ -67,19 +67,20 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     fontSize: 16,
-    color: 'black',
+    color: 'white',
   },
   baseInputField: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch',
     borderRadius: 100,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#333333',
     height: 48,
     marginTop: 4,
     paddingRight: 10,
   },
   textInput: {
+    width: '100%',
     marginVertical: 7,
   },
   eyeIcon: {

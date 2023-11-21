@@ -7,7 +7,7 @@ const CardSlider = () => {
         { id: 1, title: 'UNSW BusSoc Ball', image: require('../../assets/party.png'), heading: 'The best ball you can ever see and touch' },
         { id: 2, title: 'Badminton Night', image: require('../../assets/badmin.jpg'), heading: 'Badminton 31/10/2023' },
         { id: 3, title: 'Nature Photography', image: require('../../assets/flower.png'), heading: 'Embrace Nature' },
-        { id: 4, title: 'Card 4', image: require('../../assets/badmin.jpg'), heading: 'Heading 4' },
+        { id: 4, title: 'Card tricks', image: require('../../assets/cards.jpeg'), heading: 'Professional sleight of hand techniques' },
         { id: 5},
     ];
   

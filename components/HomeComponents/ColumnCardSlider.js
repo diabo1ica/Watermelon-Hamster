@@ -6,7 +6,7 @@ const ColumnCardSlider = () => {
     { id: 1, title: 'Lecsafe Bible Study Group', image: require('../../assets/bible.png'), heading: "It's time to praise Jesus" },
     { id: 2, title: 'V3 And Above BoulderSoc', image: require('../../assets/v3.png'), heading: 'Not For Newbies Weekly Social' },
     { id: 3, title: 'EDM Lovers', image: require('../../assets/EDM.png'), heading: 'For those who love electronic music' },
-    { id: 4, title: 'Card 4', image: require('../../assets/badmin.jpg'), heading: 'Heading 4' },
+    { id: 4, title: 'Hiking trail', image: require('../../assets/mountain.png'), heading: 'Join our summer hiking retreat' },
   ];
 
   return (
