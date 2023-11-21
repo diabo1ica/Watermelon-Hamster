@@ -48,8 +48,9 @@ const CreateGroup = () => {
         name: groupName,
         location: groupLocation,
         description: groupDescription,
-        image: selectedImage, // Directly use the base64 string
+        image: selectedImage,
         createdAt: serverTimestamp(),
+        events: [],
       };
 
       await set(newGroupRef, groupData);
