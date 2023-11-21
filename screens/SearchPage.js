@@ -1,8 +1,16 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import SearchResult from '../components/SearchResult';
 
-const SearchPage = () => {
+const SearchPage = ({ navigation }) => {
+  const [select, setSelect] = React.useState(false);
+
+  const toggleSelect = () => {
+    setSelect(!select);
+    console.log('Pressed' ,select)
+  };
+
   return (
     <View style={styles.container}>
         <View style={styles.searchBox}>
@@ -11,27 +19,37 @@ const SearchPage = () => {
         </View>
         <View style={styles.filters}>
             <TouchableOpacity style={styles.filterButton}>
-            <Text style={styles.filterButtonText}>Category</Text>
+                <Text style={styles.filterButtonText}>Category</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.filterButton}>
-            <Text style={styles.filterButtonText}>Distance</Text>
+                <Text style={styles.filterButtonText}>Distance</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.filterButton}>
-            <Text style={styles.filterButtonText}>Capacity</Text>
+                <Text style={styles.filterButtonText}>Capacity</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.filterButton}>
-            <Text style={styles.filterButtonText}>Day</Text>
+                <Text style={styles.filterButtonText}>Day</Text>
             </TouchableOpacity>
         </View>
 
         <View style={styles.filters2}>
-            <TouchableOpacity style={[styles.filterButton, { marginRight: 10 }]}>
-            <Text style={styles.filterButtonText}>Groups</Text>
+            <TouchableOpacity
+                style={[styles.filterButton, !select && styles.disabledFilterButton ,{ marginRight: 10 }]}
+                onPress={toggleSelect}
+                >
+                <Text style={styles.filterButtonText}>Groups</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.filterButton}>
-            <Text style={styles.filterButtonText}>Events</Text>
+            <TouchableOpacity 
+                style={[styles.filterButton, select && styles.disabledFilterButton]}
+                onPress={toggleSelect}
+                >
+                <Text style={styles.filterButtonText}>Events</Text>
             </TouchableOpacity>
         </View>
+
+        {!select &&
+            <SearchResult navigation={navigation}/>
+        }
     </View>
   );
 };
@@ -65,6 +83,12 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     backgroundColor: '#333333',
+    width: 80,
+    borderRadius: 20,
+    padding: 10,
+  },
+  disabledFilterButton: {
+    backgroundColor: '#AF66CC',
     width: 80,
     borderRadius: 20,
     padding: 10,
