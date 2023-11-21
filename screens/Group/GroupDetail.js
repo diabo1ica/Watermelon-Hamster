@@ -54,7 +54,6 @@ const GroupDetail = ({ route, navigation }) => {
 					</View>
 				) : (
 					<View>
-						{/* iterate through upcoming events */}
 						{Object.entries(group.events).map(([key, event]) => (
 							<View>
 								<EventCard
