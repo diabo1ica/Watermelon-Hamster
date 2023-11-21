@@ -6,10 +6,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../components/AuthUtils';
 
 
-export default function Events({ route, navigation }) {
-	// console.log(`params: ${route.params}`);
-	// 
-	const { newEvent, eventData } = route.params ?? {};
+export default function Events({ navigation }) {	// 
 
 	const [events, setEvents] = React.useState([]);
 	const [zeroEvents, setZeroEvents] = React.useState(false);
@@ -45,26 +42,22 @@ export default function Events({ route, navigation }) {
     };
   }, []);
 
-	React.useEffect(() => {
-		if (newEvent && eventData) {
-			console.log('bikin event');
-			setEvents((prevEvents) => [...prevEvents, eventData]);
-			console.log(eventData);
-			navigation.setParams({ newEvent: undefined, eventData: undefined });
-		}
-	}, [eventData, navigation]);
+	// React.useEffect(() => {
+	// 	if (newEvent && eventData) {
+	// 		console.log('bikin event');
+	// 		setEvents((prevEvents) => [...prevEvents, eventData]);
+	// 		console.log(eventData);
+	// 		navigation.setParams({ newEvent: undefined, eventData: undefined });
+	// 	}
+	// }, [eventData, navigation]);
 
-	React.useEffect(() => {
-		if (events.length === 0) {
-			setZeroEvents(true);
-		} else {
-			setZeroEvents(false);
-		}
-	}, [events])
-
-	// the thing is:
-	// 1. iterate through groups (firebase)
-	// 2. in each of that group display all of the events
+	// React.useEffect(() => {
+	// 	if (events.length === 0) {
+	// 		setZeroEvents(true);
+	// 	} else {
+	// 		setZeroEvents(false);
+	// 	}
+	// }, [events])
 
 	return (
 		<View style={styles.main}>

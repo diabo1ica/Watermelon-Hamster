@@ -23,7 +23,7 @@ const CardSlider = () => {
     );
   
     return (
-    <View style={{marginBottom:20, flexDirection:'row', justifyContent:'center'}}>
+    <View style={{ marginBottom: 20, flexDirection: 'row', justifyContent: 'center' }}>
       <Carousel
         data={data}
         renderItem={renderItem}
