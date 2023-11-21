@@ -11,6 +11,7 @@ import SignUp from './screens/SignUp';
 import Event from './screens/Event';
 import EventDetails from './screens/EventDetails';
 import HomePage from './screens/HomePage'
+import EditProfilePage from './screens/EditProfilePage';
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -205,6 +206,28 @@ const App = () => {
                 headerTitle: 'Group Detail',
                 headerTintColor: 'white',
                 headerBackTitle: 'Groups'
+              }}
+            />
+            <Stack.Screen
+              name='EditProfilePage'
+              component={EditProfilePage}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Edit Profile',
+                headerTintColor: 'white',
+              }}
+            />
+            <Stack.Screen
+              name='ProfilePage'
+              component={ProfileScreen}
+              options={{
+                headerStyle: {
+                  backgroundColor: 'rgb(46,46,46)',
+                },
+                headerTitle: 'Profile',
+                headerTintColor: 'white',
               }}
             />
           </Stack.Navigator>
