@@ -12,6 +12,7 @@
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-firebase/app": "^18.6.1",
+    "deprecated-react-native-prop-types": "^5.0.0",
     "expo": "~49.0.15",
     "expo-checkbox": "~2.4.0",
     "expo-file-system": "^15.6.0",
