@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
-    alignItems: 'right',
+    alignItems: 'center',
     marginBottom: 5,
   },
   countsContainer: {
