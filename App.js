@@ -70,7 +70,7 @@ const App = () => {
         }}>
 
           <Tabs.Screen
-            name="HomePage"
+            name="Home"
             component={HomePage}
             options={{
               tabBarIcon: ({ size }) => (
