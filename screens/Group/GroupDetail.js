@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
+
 const GroupDetail = ({ route }) => {
     const { group } = route.params;
     const upcomingEvents = group.upcomingEvents || []; // Assuming that the events are stored in the group object
