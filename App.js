@@ -19,8 +19,6 @@ import LogoutButton from './components/LogoutButton';
 
 import MyGroups from './screens/Group/MyGroups';
 import CreateGroup from './screens/Group/CreateGroup'; // Import CreateGroups
-
-import HomePage from './screens/HomePage';
 import CreateEvent from './screens/CreateEvent';
 import ProfileScreen from './screens/ProfilePage';
 
