@@ -1,18 +1,33 @@
 import React, { useState } from 'react';
-import { Alert, Text, StyleSheet, ScrollView } from 'react-native';
+import {
+  Alert,
+  Text,
+  StyleSheet,
+  ScrollView,
+  View,
+} from 'react-native';
 import UploadImageComponent from '../../components/UploadImageComponent';
 import FormInputs from '../../components/FormInputs';
 import SubmitButton from '../../components/SubmitButton';
 import DescriptionInput from '../../components/DescriptionInput';
-import { ref, push, set, serverTimestamp } from 'firebase/database';
-import { ref as sRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../../components/AuthUtils';
+import {
+  ref,
+  push,
+  set,
+  serverTimestamp,
+} from 'firebase/database';
+import { db } from '../../components/AuthUtils';
+import { useNavigation } from '@react-navigation/native';
+import * as Progress from 'react-native-progress';
 
 const CreateGroup = () => {
-  const [groupName, setGroupName] = React.useState('');
-  const [groupLocation, setGroupLocation] = React.useState('');
-  const [groupDescription, setGroupDescription] = React.useState('');
+  const navigation = useNavigation();
+  const [groupName, setGroupName] = useState('');
+  const [groupLocation, setGroupLocation] = useState('');
+  const [groupDescription, setGroupDescription] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
   const groupsRef = ref(db, 'groups');
 
   const handleCreateGroup = async () => {
@@ -25,32 +40,28 @@ const CreateGroup = () => {
         return;
       }
 
+      setLoading(true);
+
       const newGroupRef = push(groupsRef);
-      const newGroupId = newGroupRef.key;
-
-      // Upload the image to Firebase Storage
-      const imageRef = sRef(storage, `groupImages/${newGroupId}`);
-      await uploadBytes(imageRef, selectedImage)
-
-      // Get the download URL of the uploaded image
-      const imageUrl = await getDownloadURL(imageRef);
 
       const groupData = {
         name: groupName,
         location: groupLocation,
         description: groupDescription,
-        image: imageUrl,
+        image: selectedImage, // Directly use the base64 string
         createdAt: serverTimestamp(),
       };
 
-      // Use set to create or overwrite the data at the specified location
       await set(newGroupRef, groupData);
 
-      console.log('Group created with ID: ', newGroupId);
+      setLoading(false);
 
-      // Additional logic after group creation (e.g., navigation)
+      Alert.alert('Success', 'Group created successfully.');
+
+      navigation.navigate('Groups');
     } catch (error) {
-      console.error('Error creating group:', error.message);
+      console.error(error.message);
+      setLoading(false);
       Alert.alert('Error', 'Failed to create the group. Please try again.');
     }
   };
@@ -58,26 +69,27 @@ const CreateGroup = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header1}>Create Group</Text>
-      {/* Upload Image */}
       <UploadImageComponent
         selectedImage={selectedImage}
         setSelectedImage={setSelectedImage}
       />
-      {/* Group Name */}
       <FormInputs placeholder='Group Name' onChangeText={setGroupName} />
-      {/* Group Location */}
       <FormInputs
         placeholder='Group Location'
         onChangeText={setGroupLocation}
       />
-      {/* Group Description */}
       <DescriptionInput
         placeholder='Group Description'
         onChangeText={setGroupDescription}
       />
-      {/* Create Group Button */}
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <Progress.CircleSnail color={['red', 'green', 'blue']} />
+          <Text style={styles.newGroup}>Creating Group</Text>
+        </View>
+      )}
       <SubmitButton
-        disabled={false}
+        disabled={loading}
         text='Create Group'
         onPress={handleCreateGroup}
       />
@@ -87,10 +99,19 @@ const CreateGroup = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1, // Use flexGrow instead of flex
+    justifyContent: 'center',
+    flexGrow: 1,
     backgroundColor: '#1A1A1A',
     padding: 16,
     paddingBottom: 100,
+  },
+  progressBar: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  loadingContainer: {
+    marginTop: 20,
+    alignItems: 'center',
   },
   newGroup: {
     color: 'white',
