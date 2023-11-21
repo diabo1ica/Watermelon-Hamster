@@ -16,7 +16,7 @@ const ProfileScreen = () => {
             <View style={styles.profilePhotoContainer}>
             <Image
                 style={styles.profilePhoto}
-                source={require('../assets/homeImages/badmin.jpg')} // Update with the actual path to profile photo
+                source={require('../assets/badmin.jpg')} // Update with the actual path to profile photo
             />
             </View>
 

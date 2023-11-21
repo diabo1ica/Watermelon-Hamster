@@ -118,6 +118,6 @@ const styles = StyleSheet.create({
 	buttonTop: {
 		color: 'white',
 		backgroundColor: 'rgb(57, 57, 57)',
-		borderRadius: '20px',
+		borderRadius: 20,
 	}
 });
