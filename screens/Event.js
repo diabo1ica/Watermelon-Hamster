@@ -6,10 +6,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../components/AuthUtils';
 
 
-export default function Events({ route, navigation }) {
-	// console.log(`params: ${route.params}`);
-	// 
-	const { newEvent, eventData } = route.params ?? {};
+export default function Events({ navigation }) {	// 
 
 	const [events, setEvents] = React.useState([]);
 	const [zeroEvents, setZeroEvents] = React.useState(false);
@@ -45,27 +42,6 @@ export default function Events({ route, navigation }) {
     };
   }, []);
 
-	React.useEffect(() => {
-		if (newEvent && eventData) {
-			console.log('bikin event');
-			setEvents((prevEvents) => [...prevEvents, eventData]);
-			console.log(eventData);
-			navigation.setParams({ newEvent: undefined, eventData: undefined });
-		}
-	}, [eventData, navigation]);
-
-	React.useEffect(() => {
-		if (events.length === 0) {
-			setZeroEvents(true);
-		} else {
-			setZeroEvents(false);
-		}
-	}, [events])
-
-	// the thing is:
-	// 1. iterate through groups (firebase)
-	// 2. in each of that group display all of the events
-
 	return (
 		<View style={styles.main}>
 			<View style={styles.topBar}>
@@ -89,22 +65,25 @@ export default function Events({ route, navigation }) {
 					) : (
 						Object.entries(groups).map(([key, group]) => {
 							if (group.events && typeof group.events === 'object') {
+								console.log(group.events);
 								return Object.entries(group.events).map(([eventKey, event]) => (
 									<View key={eventKey}>
 										<EventCard
 											title={event.name}
 											location={event.location}
 											description={event.description}
-											startDateString={event.startDateString}
-											endDateString={event.endDateString}
+											startDate={event.startDate}
+											endDate={event.endDate}
 											image={event.image}
+											price={event.price}
 											onPress={() => navigation.navigate("EventDetails", { 
-												title: event.title, 
+												title: event.name, 
 												location: event.location, 
 												description: event.description, 
-												startDateString: event.startDateString, 
-												endDateString: event.endDateString, 
-												image: event.image 
+												startDate: event.startDate, 
+												endDate: event.endDate, 
+												image: event.image,
+												price: event.price
 											})}
 										/>
 									</View>
