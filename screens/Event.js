@@ -42,23 +42,6 @@ export default function Events({ navigation }) {	//
     };
   }, []);
 
-	// React.useEffect(() => {
-	// 	if (newEvent && eventData) {
-	// 		console.log('bikin event');
-	// 		setEvents((prevEvents) => [...prevEvents, eventData]);
-	// 		console.log(eventData);
-	// 		navigation.setParams({ newEvent: undefined, eventData: undefined });
-	// 	}
-	// }, [eventData, navigation]);
-
-	// React.useEffect(() => {
-	// 	if (events.length === 0) {
-	// 		setZeroEvents(true);
-	// 	} else {
-	// 		setZeroEvents(false);
-	// 	}
-	// }, [events])
-
 	return (
 		<View style={styles.main}>
 			<View style={styles.topBar}>

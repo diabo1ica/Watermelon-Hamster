@@ -1,5 +1,14 @@
 import * as React from 'react';
-import { Alert, TextInput, View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { 
+	Alert, 
+	TextInput, 
+	View, 
+	Text, 
+	Button, 
+	Image, 
+	StyleSheet, 
+	TouchableOpacity,
+	ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +30,7 @@ export default function CreateEvent({ route, navigation }) {
 	const [endDate, setEndDate] = React.useState(new Date());
 	const [description, setDescription] = React.useState('');
 	const [image, setImage] = React.useState(null);
+	const [ticketPrice, setTicketPrice] = React.useState(0);
 
 	const [loading, setLoading] = React.useState(false);
 
@@ -42,6 +52,7 @@ export default function CreateEvent({ route, navigation }) {
 
 			console.log(`ini final startDate: ${startDateString}`);
 			console.log(`ini final endDate: ${endDateString}`);
+			console.log(`ini ticket price jg ud: ${ticketPrice}`)
 
       const eventData = {
         name: title,
@@ -92,92 +103,100 @@ export default function CreateEvent({ route, navigation }) {
 
 	return (
 		<View style={styles.main}>
-			{image ? (
-        <Image
-          source={{ uri: image }}
-          style={{ height: 300, width: '100%', alignSelf: 'center', marginBottom: 20 }}
-        />
-      ) : (
-				<View style={styles.imageContainer}>
-				<TouchableOpacity onPress={handleUploadPress}>
-					<Text style={styles.uploadPhotoText}>Upload an image</Text>
-				</TouchableOpacity>
-			</View>
-			)}
-
-			<TextInput 
-				placeholder='even title' 
-				placeholderTextColor='rgb(125,125,125)'
-				value={title} 
-				onChangeText={setTitle} 
-				style={{ height: 50, backgroundColor: 'white', marginBottom: 20, borderRadius: 5, padding: 10 }}
-			/>
-
-			<TextInput 
-				placeholder='event location'
-				placeholderTextColor='rgb(125,125,125)'
-				value={location} 
-				onChangeText={setLocation}
-				style={{ height: 50, backgroundColor: 'white', marginBottom: 20, borderRadius: 5, padding: 10 }}
-			/>
-
-			{/* starting date */}
-			<View style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'space-between', marginBottom: 10 }}>
-				<View style={{ }}>
-					<Button title='Select starting date' color='white'/>
-				</View>
-				<View style={{ backgroundColor: 'grey', borderRadius: 7, alignItems: 'center', justifyContent: 'center' }}>
-					<DateTimePicker
-						testID='dateTimePicker'
-						value={startDate}
-						mode='date'
-						is24Hour={true}
-						display='default'
-						// onChange={onChangeStartDate}
-						onChange={(event, selectedDate) => {
-							if (selectedDate) setStartDate(selectedDate);
-						}}
+			<ScrollView style={styles.scrollView}>
+				{image ? (
+					<Image
+						source={{ uri: image }}
+						style={{ height: 300, width: '100%', alignSelf: 'center', marginBottom: 20 }}
 					/>
+				) : (
+					<View style={styles.imageContainer}>
+					<TouchableOpacity onPress={handleUploadPress}>
+						<Text style={styles.uploadPhotoText}>Upload an image</Text>
+					</TouchableOpacity>
 				</View>
-			</View>
+				)}
 
-			{/* ending date */}
-			<View style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'space-between' }}>
-				<View style={{ }}>
-					<Button title='Select ending date' color='white'/>
-				</View>
-				<View style={{ backgroundColor: 'grey', borderRadius: 7, alignItems: 'center', justifyContent: 'center' }}>
-					<DateTimePicker
-						testID='dateTimePicker'
-						value={endDate}
-						mode='date'
-						is24Hour={true}
-						display='default'
-						// onChange={onChangeEndDate}
-						onChange={(event, selectedDate) => {
-							if (selectedDate) setEndDate(selectedDate);
-						}}
-					/>
-				</View>
-			</View>
+				<TextInput 
+					placeholder='event title' 
+					placeholderTextColor='rgb(125,125,125)'
+					value={title} 
+					onChangeText={setTitle} 
+					style={{ height: 50, backgroundColor: 'white', marginBottom: 20, borderRadius: 5, padding: 10 }}
+				/>
 
-			{/* description input */}
-			<TextInput
-        placeholder='enter event description here'
-				placeholderTextColor='rgb(125,125,125)'
-        multiline
-        numberOfLines={4} // You can set the default number of lines
-        value={description}
-        onChangeText={setDescription}
-        style={{ 
-					height: 80, 
-					backgroundColor: 'white', 
-					marginBottom: 15, 
-					borderRadius: 5, 
-					padding: 10,
-					marginTop: 20 
-				}}
-      />
+				<TextInput 
+					placeholder='event location'
+					placeholderTextColor='rgb(125,125,125)'
+					value={location} 
+					onChangeText={setLocation}
+					style={{ height: 50, backgroundColor: 'white', marginBottom: 20, borderRadius: 5, padding: 10 }}
+				/>
+
+				{/* starting date */}
+				<View style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'space-between', marginBottom: 10 }}>
+					<View style={{ }}>
+						<Button title='Select starting date' color='white'/>
+					</View>
+					<View style={{ backgroundColor: 'grey', borderRadius: 7, alignItems: 'center', justifyContent: 'center' }}>
+						<DateTimePicker
+							testID='dateTimePicker'
+							value={startDate}
+							mode='date'
+							is24Hour={true}
+							display='default'
+							onChange={(event, selectedDate) => {
+								if (selectedDate) setStartDate(selectedDate);
+							}}
+						/>
+					</View>
+				</View>
+
+				{/* ending date */}
+				<View style={{ display: 'flex', flexDirection: 'row',  justifyContent: 'space-between' }}>
+					<View style={{ }}>
+						<Button title='Select ending date' color='white'/>
+					</View>
+					<View style={{ backgroundColor: 'grey', borderRadius: 7, alignItems: 'center', justifyContent: 'center' }}>
+						<DateTimePicker
+							testID='dateTimePicker'
+							value={endDate}
+							mode='date'
+							is24Hour={true}
+							display='default'
+							onChange={(event, selectedDate) => {
+								if (selectedDate) setEndDate(selectedDate);
+							}}
+						/>
+					</View>
+				</View>
+
+				{/* description input */}
+				<TextInput
+					placeholder='enter event description here'
+					placeholderTextColor='rgb(125,125,125)'
+					multiline
+					numberOfLines={4} // You can set the default number of lines
+					value={description}
+					onChangeText={setDescription}
+					style={{ 
+						height: 80, 
+						backgroundColor: 'white', 
+						marginBottom: 15, 
+						borderRadius: 5, 
+						padding: 10,
+						marginTop: 20 
+					}}
+				/>
+
+				<TextInput 
+					placeholder='ticket price' 
+					placeholderTextColor='rgb(125,125,125)'
+					value={ticketPrice} 
+					onChangeText={setTicketPrice} 
+					style={{ height: 50, backgroundColor: 'white', marginBottom: 20, borderRadius: 5, padding: 10 }}
+				/>
+			</ScrollView>
 
 			<View style={{ 
 				display: 'flex', 
@@ -201,7 +220,7 @@ export default function CreateEvent({ route, navigation }) {
 						onPress={handleCreateEvent}
 					/>
 				</View>
-				</View>
+			</View>
 		</View>
 	)
 }
