@@ -39,3 +39,6 @@ The project follows a folder structure as outlined below:
 ### Contributions
 The project has been developed as part of the COMP4511 Course running in 2023 Term 3.
 The contributors of the project are Gary Ang Ang, Kevin Sutandi, Alexander Effendy and Kshitij Deodhar
+
+### Assets
+Assets downloaded are stock photos and not owned by the contributors
