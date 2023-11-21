@@ -32,6 +32,7 @@ export default function EventDetails({ route, navigation }) {
 						color='white'
 						onPress={() => {
 							alert(`You have joined the event ${title}`)
+							navigation.navigate('Events')
 						}}
 					/>
 				</View>
