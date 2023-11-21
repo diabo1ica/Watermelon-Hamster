@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./screens/LoginPage";
 import SignUp from "./screens/SignUp";
 import Event from './screens/Event';
+import HomePage from './screens/HomePage'
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -17,6 +18,7 @@ import { signOut } from 'firebase/auth'; // Import the appropriate function from
 import LogoutButton from './components/LogoutButton';
 
 import CreateEvent from './screens/CreateEvent';
+import ProfileScreen from './screens/ProfilePage';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -110,7 +112,7 @@ const App = () => {
 
           <Tabs.Screen
             name="Profile" 
-            component={Login}
+            component={ProfileScreen}
             options={{
               tabBarIcon: ({ size }) => (
                 <Ionicons name="md-settings-outline" size={size} color="white" />
