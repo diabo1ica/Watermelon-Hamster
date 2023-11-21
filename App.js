@@ -9,6 +9,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './screens/LoginPage';
 import SignUp from './screens/SignUp';
 import Event from './screens/Event';
+import EventDetails from './screens/EventDetails';
+import HomePage from './screens/HomePage'
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
@@ -22,6 +24,7 @@ import GroupDetail from './screens/Group/GroupDetail';
 
 import HomePage from './screens/HomePage';
 import CreateEvent from './screens/CreateEvent';
+import ProfileScreen from './screens/ProfilePage';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -52,18 +55,20 @@ const App = () => {
 
   const BottomTabs = () => {
     return (
-        <Tabs.Navigator 
-          screenOptions={{ 
-            headerShown: true,
-            tabBarStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-            tabBarActiveTintColor: 'white',
-            tabBarInactiveTintColor: 'white', 
-            headerStyle: {
-              backgroundColor: 'rgb(46,46,46)',
-            },
-          }}>
+      <Tabs.Navigator 
+        screenOptions={{ 
+          headerShown: true,
+          tabBarStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+          },
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: 'white', 
+          headerStyle: {
+            backgroundColor: 'rgb(46,46,46)',
+            shadowColor: 'transparent', // Remove shadow on iOS
+          },
+          headerTintColor: 'white',
+        }}>
 
           <Tabs.Screen
             name="HomePage"
@@ -83,9 +88,7 @@ const App = () => {
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons
-                name='md-game-controller-outline'
-                size={size}
-                color='white'
+                name='md-people-outline' size={size} color='white'
               />
             ),
           }}
@@ -95,7 +98,7 @@ const App = () => {
           component={Event}
           options={{
             tabBarIcon: ({ size }) => (
-              <Ionicons name='md-search' size={size} color='white' />
+              <Ionicons name='md-game-controller-outline' size={size} color='white' />
             ),
           }}
         ></Tabs.Screen>
@@ -110,18 +113,19 @@ const App = () => {
           }}
         ></Tabs.Screen>
 
-        <Tabs.Screen
-          name='Profile'
-          component={Login}
-          options={{
-            tabBarIcon: ({ size }) => (
-              <Ionicons name='md-settings-outline' size={size} color='white' />
-            ),
-          }}
-        />
+          <Tabs.Screen
+            name="Profile" 
+            component={ProfileScreen}
+            options={{
+              tabBarIcon: ({ size }) => (
+                <Ionicons name="md-settings-outline" size={size} color="white" />
+              )
+            }}
+          />
+
       </Tabs.Navigator>
-    );
-  };
+    )
+  }
 
   const [fontsLoaded, error] = useFonts({
     'GothicA1-Regular': require('./assets/fonts/GothicA1-Regular.ttf'),

@@ -6,10 +6,10 @@ import ColumnCardSlider from '../components/HomeComponents/ColumnCardSlider';
 const HomePage = () => {
   return (
     <ScrollView style={styles.container}>
-        <Text style={styles.componentTitle}>{'Recomendations Near You'}</Text>
-        <CardSlider/>
-        <Text style={styles.componentTitle}>{'New Group Recomendations'}</Text>
-        <ColumnCardSlider/>
+      <Text style={styles.componentTitle}>{'Recomendations Near You'}</Text>
+      <CardSlider/>
+      <Text style={styles.componentTitle}>{'New Group Recomendations'}</Text>
+      <ColumnCardSlider/>
     </ScrollView>
   );
 };
