@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextInput, View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, TextInput, View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from '@react-navigation/native';
@@ -28,11 +28,12 @@ export default function CreateEvent({ route, navigation }) {
 	const [image, setImage] = React.useState(null);
 
 	const [loading, setLoading] = React.useState(false);
+
 	const eventRef = ref(db, 'groups/' + group.id + '/events' );
 
 	const handleCreateEvent = async () => {
     try {
-      if (!title || !location || !startDate || !endDate || !description || !image) {
+      if (!title || !location || !startDateString || !endDateString || !description || !image) {
         Alert.alert(
           'Incomplete Form',
           'Please fill in all the required fields'
@@ -58,7 +59,7 @@ export default function CreateEvent({ route, navigation }) {
 
       setLoading(false);
 
-      Alert.alert('Success', 'Group created successfully.');
+      Alert.alert('Success', 'Event created successfully.');
 
       navigation.navigate('Events');
     } catch (error) {

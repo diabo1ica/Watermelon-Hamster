@@ -4,7 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const GroupDetail = ({ route, navigation }) => {
 	const { group } = route.params;
-	const upcomingEvents = group.upcomingEvents || []; // Assuming that the events are stored in the group object
+	const upcomingEvents = group.events || []; // Assuming that the events are stored in the group object
+	console.log('here are the events');
+	console.log(upcomingEvents);
 
 	return (
 		<ScrollView style={{backgroundColor: "#1A1A1A" }}>
@@ -47,6 +49,9 @@ const GroupDetail = ({ route, navigation }) => {
 				) : (
 					<View>
 						<Text>Hello</Text>
+						{/* iterate through upcoming events */}
+						
+
 					</View>
 				)}
 			</View>
