@@ -44,19 +44,13 @@ const ProfileScreen = () => {
         />
       </View>
 
-      {/* ScrollView for Groups */}
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.componentTitle}>{'Your Groups'}</Text>
-        <ColumnCardSlider />
-      </ScrollView>
+    <Text style={styles.componentTitle}>{'Your Groups'}</Text>
+    <ColumnCardSlider navigation={navigation}/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -122,6 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 'bold',
     lineHeight: 22,
+    marginTop: 15,
     marginBottom: 15,
   },
 });

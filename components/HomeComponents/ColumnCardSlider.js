@@ -1,73 +1,105 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-// watermelon-hamster-react-native\assets\homeImages\badmin.jpg
-const ColumnCardSlider = () => {
-  const data = [
-    { id: 1, title: 'Lecsafe Bible Study Group', image: require('../../assets/bible.png'), heading: "It's time to praise Jesus" },
-    { id: 2, title: 'V3 And Above BoulderSoc', image: require('../../assets/v3.png'), heading: 'Not For Newbies Weekly Social' },
-    { id: 3, title: 'EDM Lovers', image: require('../../assets/EDM.png'), heading: 'For those who love electronic music' },
-    { id: 4, title: 'Hiking trail', image: require('../../assets/mountain.png'), heading: 'Join our summer hiking retreat' },
-  ];
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { ref, onValue } from 'firebase/database';
+import { db } from '../../components/AuthUtils';
 
-  return (
-    <View style={styles.column}>
-      {data.map(element => (
-        <TouchableOpacity key={element.id}>
-            <View style={styles.rowWrapper}>
-                <View style={styles.rowContent}>
-                    <Image
-                    source={element.image}
-                    style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }}
-                    />
-                    <View>
-                        <Text style={styles.title}>{element.title}</Text>
-                        <Text style={styles.text}>{element.heading}</Text>
-                    </View>
+const ColumnCardSlider = ({ navigation }) => {
+    const [groups, setGroups] = React.useState([]);
+
+    const navigateToGroupDetail = (group) => {
+        navigation.navigate('GroupDetail', { group });
+    };
+
+    useEffect(() => {
+        const groupsRef = ref(db, 'groups');
+
+        // Use the 'onValue' function to listen for changes to the data
+        const unsubscribe = onValue(groupsRef, (snapshot) => {
+            const groupsData = [];
+
+            // Check if the snapshot exists and has children
+            if (snapshot.exists()) {
+                // Loop through the snapshot and extract the data
+                snapshot.forEach((childSnapshot) => {
+                    const group = childSnapshot.val();
+                    groupsData.push({ id: childSnapshot.key, ...group });
+                });
+
+                // Update the state with the fetched data
+                // console.log(groupsData);
+                setGroups(groupsData);
+            }
+        });
+
+        // Return a cleanup function to unsubscribe when the component unmounts
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
+    return (
+        <FlatList
+            data={groups}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <View style={styles.column}>
+                    <TouchableOpacity onPress={() => navigateToGroupDetail(item)}>
+                        <View style={styles.rowWrapper}>
+                            <View style={styles.rowContent}>
+                                <Image
+                                    source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+                                    style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }}
+                                />
+                                <View>
+                                    <Text style={styles.title}>{item.name}</Text>
+                                    <Text style={styles.text}>{item.description}</Text>
+                                </View>
+                            </View>
+                            <Image
+                                source={require('../../assets/arrow.png')}
+                                style={styles.rowIcon}
+                            />
+                        </View>
+                    </TouchableOpacity>
                 </View>
-                <Image
-                source={require('../../assets/arrow.png')}
-                style={styles.rowIcon}
-                />
-            </View>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
+            )}
+        />
+    );
 };
 
 const styles = StyleSheet.create({
-  column: {
-    flexDirection: 'column',
-  },
-  rowContent: {
-    flexDirection: 'row',
-    alignItems:'center'
-  },
-  rowIcon: {
-    width: 30, 
-    height: 30, 
-    justifyContent: 'center' 
-  },
-  rowWrapper: {
-    flexDirection: 'row',
-    height: 90,
-    marginTop: 5,
-    marginBottom: 5,
-    borderColor : 'rgba(122, 122, 122, 0.25)',
-    alignItems: 'center',
-    justifyContent:'space-between',
-    borderTopWidth: 2,
-  },
-  title: {
-    color: 'white',
-    fontSize: 19,
-    fontWeight: 'bold',
-    lineHeight: 22,
-  },
-  text: {
-    color: 'rgba(255, 255, 255, 0.75)',
-    fontSize: 12,
-  },
+    column: {
+        flexDirection: 'column',
+    },
+    rowContent: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    rowIcon: {
+        width: 30,
+        height: 30,
+        justifyContent: 'center'
+    },
+    rowWrapper: {
+        flexDirection: 'row',
+        height: 90,
+        marginTop: 5,
+        marginBottom: 5,
+        borderColor: 'rgba(122, 122, 122, 0.25)',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderTopWidth: 2,
+    },
+    title: {
+        color: 'white',
+        fontSize: 19,
+        fontWeight: 'bold',
+        lineHeight: 22,
+    },
+    text: {
+        color: 'rgba(255, 255, 255, 0.75)',
+        fontSize: 12,
+    },
 });
 
 export default ColumnCardSlider;
