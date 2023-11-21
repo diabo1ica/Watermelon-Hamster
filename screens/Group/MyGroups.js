@@ -47,45 +47,56 @@ const MyGroups = ({ navigation }) => {
     };
   }, []); // The empty dependency array ensures that this effect runs once, similar to componentDidMount
 
-  return (
-    <>
-      <View style={{ height: '100%', backgroundColor: '#1A1A1A' }}>
-        <View style={styles.container}>
-          <Text style={styles.header1}>Your Groups</Text>
-          <TouchableOpacity style={styles.noAccount} onPress={createGroup}>
-            <Text style={styles.newGroup}>+ New Group</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <FlatList
-            data={groups}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity style={styles.groupItem}>
-                <View style={{flexDirection:'row'}}>
-                  <Image
-                    source={{ uri: `data:image/jpeg;base64,${item.image}` }}
-                    style={styles.groupImage}
-                  />
-                  <View
-                    style={{ flexDirection: 'column', marginLeft: 10, gap: 10 }}
-                  >
-                    <Text style={styles.groupName}>{item.name}</Text>
-                    <Text style={styles.groupLocation}>📍 {item.location}</Text>
-                    <Text style={styles.groupDescription}>
-                      {item.description}
-                    </Text>
-                  </View>
-                  
-                </View>
+  const navigateToGroupDetail = (group) => {
+    navigation.navigate('GroupDetail', { group });
+  };
 
-                <ArrowRightIcon style={styles.arrowRight} color='white' />
-              </TouchableOpacity>
-            )}
-          />
-        </View>
+  return (
+    <View style={{ height: '100%', backgroundColor: '#1A1A1A' }}>
+      <View style={styles.container}>
+        <Text style={styles.header1}>Your Groups</Text>
+        <TouchableOpacity style={styles.noAccount} onPress={createGroup}>
+          <Text style={styles.newGroup}>+ New Group</Text>
+        </TouchableOpacity>
       </View>
-    </>
+      {groups.length > 0 ? (
+        <FlatList
+          data={groups}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.groupItem}
+              onPress={() => navigateToGroupDetail(item)}
+            >
+              <View style={{ flexDirection: 'row' }}>
+                <Image
+                  source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+                  style={styles.groupImage}
+                />
+                <View
+                  style={{ flexDirection: 'column', marginLeft: 10, gap: 10 }}
+                >
+                  <Text style={styles.groupName}>{item.name}</Text>
+                  <Text style={styles.groupLocation}>📍 {item.location}</Text>
+                  <Text style={styles.groupDescription}>
+                    {item.description}
+                  </Text>
+                </View>
+              </View>
+
+              <ArrowRightIcon style={styles.arrowRight} color="white" />
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <View style={styles.noGroupsContainer}>
+          <Text style={styles.noGroupsText}>
+            You don't have any groups yet.{'\n'}
+            Create a group or join an existing one!
+          </Text>
+        </View>
+      )}
+    </View>
   );
 };
 
@@ -98,7 +109,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   arrowRight: {
-    alignSelf:'center'
+    alignSelf: 'center',
   },
   newGroup: {
     color: 'white',
@@ -112,7 +123,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#4A4A4A',
     padding: 10,
     marginVertical: 10,
-  },  
+  },
   groupName: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -165,6 +176,16 @@ const styles = StyleSheet.create({
   signUpButton: {
     color: '#AF66CC',
     fontWeight: 'bold',
+  },
+  noGroupsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noGroupsText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
 
