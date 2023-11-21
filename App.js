@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./screens/LoginPage";
 import SignUp from "./screens/SignUp";
 import Event from './screens/Event';
+import HomePage from './screens/HomePage';
 
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';

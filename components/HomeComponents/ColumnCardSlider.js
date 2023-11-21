@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-
+// watermelon-hamster-react-native\assets\homeImages\badmin.jpg
 const ColumnCardSlider = () => {
   const data = [
-    { id: 1, title: 'Badminton Night', image: require('../../assets/homeImages/badmin.jpg'), heading: 'Badminton 31/10/2023' },
-    { id: 2, title: 'Card 2', image: require('../../assets/homeImages/badmin.jpg'), heading: 'Heading 2' },
-    { id: 3, title: 'Card 3', image: require('../../assets/homeImages/badmin.jpg'), heading: 'Heading 3' },
-    { id: 4, title: 'Card 4', image: require('../../assets/homeImages/badmin.jpg'), heading: 'Heading 4' },
+    { id: 1, title: 'Lecsafe Bible Study Group', image: require('../../assets/bible.png'), heading: "It's time to praise Jesus" },
+    { id: 2, title: 'V3 And Above BoulderSoc', image: require('../../assets/v3.png'), heading: 'Not For Newbies Weekly Social' },
+    { id: 3, title: 'EDM Lovers', image: require('../../assets/EDM.png'), heading: 'For those who love electronic music' },
+    { id: 4, title: 'Card 4', image: require('../../assets/badmin.jpg'), heading: 'Heading 4' },
   ];
 
   return (
