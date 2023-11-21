@@ -24,6 +24,7 @@ import GroupDetail from './screens/Group/GroupDetail';
 
 import CreateEvent from './screens/CreateEvent';
 import ProfileScreen from './screens/ProfilePage';
+import SearchPage from './screens/SearchPage';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -104,7 +105,7 @@ const App = () => {
 
         <Tabs.Screen
           name='Search'
-          component={Event}
+          component={SearchPage}
           options={{
             tabBarIcon: ({ size }) => (
               <Ionicons name='md-search' size={size} color='white' />

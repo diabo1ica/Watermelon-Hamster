@@ -44,10 +44,8 @@ const ProfileScreen = () => {
           color="#3897f1" // Instagram blue color
         />
         </View>
-        <ScrollView style={styles.container}>
         <Text style={styles.componentTitle}>{'Your Groups'}</Text>
-        <ColumnCardSlider/>
-      </ScrollView>
+        <ColumnCardSlider navigation={navigation}/>
     </View>
     
   );
@@ -124,6 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 'bold',
     lineHeight: 22,
+    marginTop: 15,
     marginBottom: 15,
   }
 });
