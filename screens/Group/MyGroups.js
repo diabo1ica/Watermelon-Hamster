@@ -16,7 +16,6 @@ const MyGroups = ({ navigation }) => {
   const [groups, setGroups] = React.useState([]);
 
   const createGroup = () => {
-    // Navigate to create event page and pass the groups data
     navigation.navigate('CreateGroup');
   };
 
@@ -36,7 +35,7 @@ const MyGroups = ({ navigation }) => {
         });
 
         // Update the state with the fetched data
-        console.log(groupsData);
+        // console.log(groupsData);
         setGroups(groupsData);
       }
     });

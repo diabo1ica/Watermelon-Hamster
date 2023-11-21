@@ -1,14 +1,10 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 export default function EventDetails({ route, navigation }) {
 	const { title, location, description, startDateString, endDateString, image } = route.params;
-
+	console.log(startDateString);
 	React.useEffect(() => navigation.setOptions({ title }), [title]);
-
-	const handleJoinEvent = () => {
-		console.log('kimak joins an event');
-	}
 
 	return (
 		<View>
@@ -23,14 +19,7 @@ export default function EventDetails({ route, navigation }) {
 				<Text style={styles.about}>Details</Text>
 				<Text>{startDateString}</Text>
 				<Text>{location}</Text>
-
-				<Button 
-					title='JOIN EVENT'>
-					onPress={handleJoinEvent}
-				</Button>
 			</View>
-
-			
 			
 		</View>
 	)

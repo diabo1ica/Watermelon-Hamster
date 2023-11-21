@@ -11,7 +11,6 @@ const EventCard = ({ title, location, description, image, onPress }) => {
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.location}>{location}</Text>
-        {/* Add more details as needed */}
       </View>
     </TouchableOpacity>
   );
