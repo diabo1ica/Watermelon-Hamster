@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, ImageBackground } from 'react-native';
 
 export default function EventDetails({ route, navigation }) {
 	const { title, location, description, startDate, endDate, image, price } = route.params;
@@ -8,7 +8,8 @@ export default function EventDetails({ route, navigation }) {
 	return (
 		<View>
 			<Image
-				source={{ uri: image }}
+				source={{ uri: `data:image/jpeg;base64,${image}` }}
+				// source={{ uri: image }}
 				style={{ height: 400, width: '100%', alignSelf: "center" }}
 			/>
 			<View style={styles.main}>
