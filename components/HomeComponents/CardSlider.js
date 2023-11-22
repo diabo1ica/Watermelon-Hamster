@@ -8,18 +8,6 @@ import { TouchableOpacity } from 'react-native';
 const CardSlider = ({ navigation }) => {
     const [groups, setGroups] = React.useState([]);
 
-    const data = [
-        { id: 1, title: 'UNSW BusSoc Ball', image: require('../../assets/party.png'), heading: 'The best ball you can ever see and touch' },
-        { id: 2, title: 'Badminton Night', image: require('../../assets/badmin.jpg'), heading: 'Badminton 31/10/2023' },
-        { id: 3, title: 'Nature Photography', image: require('../../assets/flower.png'), heading: 'Embrace Nature' },
-        { id: 4, title: 'Card tricks', image: require('../../assets/cards.jpeg'), heading: 'Professional sleight of hand techniques' },
-        { id: 5 },
-    ];
-
-    const navigateToGroupDetail = (group) => {
-        navigation.navigate('GroupDetail', { group });
-    };
-
     useEffect(() => {
         const groupsRef = ref(db, 'groups');
 
@@ -59,22 +47,6 @@ const CardSlider = ({ navigation }) => {
         })
     };
 
-    // {Object.entries(groups).map(([key, group]) => {
-    //     if (group.events && typeof group.events === 'object') {
-    //         return Object.entries(group.events).map(([eventKey, event]) => (
-    //             <View key={eventKey}>
-    //                 <TouchableOpacity onPress={() => navigateToGroupDetail(item)}>
-    //                     <Image
-    //                         source={{ uri: `data:image/jpeg;base64,${event.image}` }}
-    //                         style={styles.image}
-    //                     />
-    //                     <Text style={styles.title}>{event.name}</Text>
-    //                     <Text style={styles.text}>{event.description}</Text>
-    //                 </TouchableOpacity>
-    //             </View>
-    //         ))
-    //     };
-    // });}
     const renderItem = ({ item }) => (
         <TouchableOpacity
           onPress={() => navigateToEventDetail(item)}
