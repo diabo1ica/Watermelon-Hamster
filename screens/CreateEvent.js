@@ -82,7 +82,6 @@ export default function CreateEvent({ route, navigation }) {
       base64: true,
     });
     if (!result.canceled) {
-      // setImage(result.assets[0].uri);
 			setImage(result.base64);
     }
   };
@@ -195,7 +194,7 @@ export default function CreateEvent({ route, navigation }) {
 				<TextInput 
 					placeholder='ticket price' 
 					placeholderTextColor='rgb(125,125,125)'
-					value={JSON.stringify(ticketPrice)} 
+					value={ticketPrice} 
 					onChangeText={setTicketPrice} 
 					style={{ height: 50, backgroundColor: 'white', marginBottom: 20, borderRadius: 5, padding: 10 }}
 				/>
