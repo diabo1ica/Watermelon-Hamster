@@ -27,20 +27,24 @@ import CreateEvent from './screens/CreateEvent';
 import ProfileScreen from './screens/ProfilePage';
 import SearchPage from './screens/SearchPage';
 
+import UserContext from './components/UserContext';
+
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 const App = () => {
   LogBox.ignoreLogs(['Key "base64" in the image picker result is deprecated']);
-
+  const [userEmail, setUserEmail] = React.useState(null);
   const [showHomeScreen, setShowHomeScreen] = React.useState(false);
 
   useEffect(() => {
     const subscriber = auth.onAuthStateChanged((user) => {
       if (user) {
         setShowHomeScreen(true);
+        setUserEmail(user.email);
       } else {
         setShowHomeScreen(false);
+        setUserEmail(null);
       }
     });
 
@@ -133,6 +137,7 @@ const App = () => {
 
   return (
     <>
+    <UserContext.Provider value={{userEmail, setUserEmail}}>
       <NavigationContainer>
         {showHomeScreen ? (
           <Stack.Navigator>
@@ -157,6 +162,7 @@ const App = () => {
                 headerTitle: 'Create an Event',
                 headerTintColor: 'white',
                 headerShown: true,
+                headerBackTitle: 'Back'
               }}
             />
 
@@ -169,6 +175,7 @@ const App = () => {
                 },
                 headerTintColor: 'white',
                 headerShown: true, 
+                headerBackTitle: 'Back'
               }}
             />
 
@@ -235,6 +242,7 @@ const App = () => {
           </Stack.Navigator>
         )}
       </NavigationContainer>
+    </UserContext.Provider>
     </>
   );
 };
