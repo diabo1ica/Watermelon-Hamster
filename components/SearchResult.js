@@ -39,6 +39,18 @@ const SearchResult = ({ navigation, filter }) => {
         };
     }, []);
 
+    const navigateToEventDetail = (event) => {
+        navigation.navigate("EventDetails", { 
+            title: event.name, 
+            location: event.location, 
+            description: event.description, 
+            startDate: event.startDate, 
+            endDate: event.endDate, 
+            image: event.image,
+            price: event.price
+        })
+    };
+
     return (
         <View>
             {!filter && <FlatList
@@ -69,7 +81,7 @@ const SearchResult = ({ navigation, filter }) => {
                     group.events
                         ? Object.values(group.events).map((event) => ({
                             ...event,
-                            groupId: group.id, // Add groupId to identify the group
+                            groupId: group.id,
                         }))
                         : []
                 )}
@@ -77,14 +89,19 @@ const SearchResult = ({ navigation, filter }) => {
                     <View>
                         <TouchableOpacity
                             onPress={() => navigateToEventDetail(item)}
-                            style={styles.slide}
+                            style={styles.cardWrapper}
                         >
                             <Image
                                 source={{ uri: `data:image/jpeg;base64,${item.image}` }}
-                                style={styles.image}
+                                style={styles.imageWrapper}
                             />
-                            <Text style={styles.title} numberOfLines={1}>{item.name}</Text>
-                            <Text style={styles.text} numberOfLines={2}>{item.description}</Text>
+                            <View style={styles.bannerWrapper}>
+                                <View style={styles.textBoxWrapper}>
+                                    <Text style={styles.title} numberOfLines={1}>{item.name}</Text>
+                                    <Text style={styles.text} numberOfLines={2}>{item.description}</Text>
+                                </View>
+                                <Ionicons name='md-arrow-forward' size={40} style={styles.icon} />
+                            </View>
                         </TouchableOpacity>
                     </View>
                 )}
