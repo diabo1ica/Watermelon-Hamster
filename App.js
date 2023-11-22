@@ -16,8 +16,6 @@ import EditProfilePage from './screens/EditProfilePage';
 import { useFonts } from 'expo-font';
 import 'firebase/firestore';
 import { auth } from './components/AuthUtils';
-import { signOut } from 'firebase/auth';
-// import LogoutButton from './components/LogoutButton';
 
 import MyGroups from './screens/Group/MyGroups';
 import CreateGroup from './screens/Group/CreateGroup';
@@ -29,15 +27,6 @@ import SearchPage from './screens/SearchPage';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
-
-// export const handleLogout = async () => {
-//   try {
-//     await signOut(auth);
-//     // Additional logic after successful logout (if needed)
-//   } catch (error) {
-//     console.error('Error logging out:', error.message);
-//   }
-// };
 
 const App = () => {
   const [showHomeScreen, setShowHomeScreen] = React.useState(false);
@@ -51,7 +40,7 @@ const App = () => {
       }
     });
 
-    return () => subscriber(); // Make sure to unsubscribe when the component unmounts
+    return () => subscriber();
   }, []);
 
   const BottomTabs = () => {
@@ -141,7 +130,6 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
-        {/* remember to change next line into !showHomeScreen */}
         {showHomeScreen ? (
           <Stack.Navigator>
             <Stack.Screen
@@ -152,9 +140,6 @@ const App = () => {
                   backgroundColor: 'rgb(46,46,46)',
                 },
                 headerShown: false,
-                // headerRight: () => {
-                //   <LogoutButton onPress={() => handleLogout()} />
-                // }
               }}
             />
 
@@ -168,9 +153,6 @@ const App = () => {
                 headerTitle: 'Create an Event',
                 headerTintColor: 'white',
                 headerShown: true,
-                // headerRight: () => {
-                //   <LogoutButton onPress={() => handleLogout()} />
-                // }
               }}
             />
 
@@ -183,7 +165,6 @@ const App = () => {
                 },
                 headerTintColor: 'white',
                 headerShown: true, 
-                // headerRight: () => <LogoutButton onPress={() => handleLogout()} />
               }}
             />
 

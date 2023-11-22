@@ -28,11 +28,7 @@ export default function Events({ navigation }) {	//
           const group = childSnapshot.val();
           groupsData.push({ id: childSnapshot.key, ...group });
         });
-
-        // Update the state with the fetched data
-        // console.log(groupsData);
         setGroups(groupsData);
-				console.log(groups);
       }
     });
 
@@ -65,7 +61,6 @@ export default function Events({ navigation }) {	//
 					) : (
 						Object.entries(groups).map(([key, group]) => {
 							if (group.events && typeof group.events === 'object') {
-								console.log(group.events);
 								return Object.entries(group.events).map(([eventKey, event]) => (
 									<View key={eventKey}>
 										<EventCard
