@@ -55,7 +55,7 @@ const GroupDetail = ({ route, navigation }) => {
 				) : (
 					<View>
 						{Object.entries(group.events).map(([key, event]) => (
-							<View>
+							<View key={key}>
 								<EventCard
 									title={event.name}
 									location={event.location}

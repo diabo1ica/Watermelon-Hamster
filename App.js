@@ -2,6 +2,8 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import { LogBox } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -29,6 +31,8 @@ const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 const App = () => {
+  LogBox.ignoreLogs(['Key "base64" in the image picker result is deprecated']);
+
   const [showHomeScreen, setShowHomeScreen] = React.useState(false);
 
   useEffect(() => {

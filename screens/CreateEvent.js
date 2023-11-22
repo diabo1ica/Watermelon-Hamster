@@ -55,10 +55,6 @@ export default function CreateEvent({ route, navigation }) {
 
       const newEventRef = push(eventRef);
 
-			console.log(`ini final startDate: ${startDateString}`);
-			console.log(`ini final endDate: ${endDateString}`);
-			console.log(`ini ticket price jg ud: ${ticketPrice}`)
-
       const eventData = {
         name: title,
         location: location,
