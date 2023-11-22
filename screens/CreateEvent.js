@@ -35,9 +35,10 @@ export default function CreateEvent({ route, navigation }) {
 
     const [loading, setLoading] = React.useState(false);
 
-    const eventRef = ref(db, 'groups/' + group.id + '/events');
     const [showStartDatePicker, setShowStartDatePicker] = React.useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = React.useState(false);
+
+    const eventRef = ref(db, 'groups/' + group.id + '/events');
 
     const handleCreateEvent = async () => {
         try {
@@ -57,10 +58,6 @@ export default function CreateEvent({ route, navigation }) {
             setLoading(true);
 
             const newEventRef = push(eventRef);
-
-            console.log(`ini final startDate: ${startDateString}`);
-            console.log(`ini final endDate: ${endDateString}`);
-            console.log(`ini ticket price jg ud: ${ticketPrice}`)
 
             const eventData = {
                 name: title,
@@ -165,7 +162,6 @@ export default function CreateEvent({ route, navigation }) {
                         </View>
                     )}
                 </View>
-
 
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{}}>
