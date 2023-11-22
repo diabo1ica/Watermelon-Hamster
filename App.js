@@ -157,6 +157,7 @@ const App = () => {
                 headerTitle: 'Create an Event',
                 headerTintColor: 'white',
                 headerShown: true,
+                headerBackTitle: 'Back'
               }}
             />
 
@@ -169,6 +170,7 @@ const App = () => {
                 },
                 headerTintColor: 'white',
                 headerShown: true, 
+                headerBackTitle: 'Back'
               }}
             />
 
