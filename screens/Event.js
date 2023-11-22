@@ -7,6 +7,7 @@ import { db } from '../components/AuthUtils';
 
 
 export default function Events({ navigation }) {	// 
+
 	const [groups, setGroups] = React.useState([]);
 
 	// get the groups data
