@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { 
 	Alert, 
 	TextInput, 
@@ -85,7 +86,8 @@ export default function CreateEvent({ route, navigation }) {
       base64: true,
     });
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      // setImage(result.assets[0].uri);
+			setImage(result.base64);
     }
   };
 
@@ -111,7 +113,7 @@ export default function CreateEvent({ route, navigation }) {
 			<ScrollView style={styles.scrollView}>
 				{image ? (
 					<Image
-						source={{ uri: image }}
+						source={{ uri: `data:image/jpeg;base64,${image}` }}
 						style={{ height: 300, width: '100%', alignSelf: 'center', marginBottom: 20 }}
 					/>
 				) : (

@@ -26,7 +26,7 @@ const CreateGroup = () => {
   const [groupLocation, setGroupLocation] = useState('');
   const [groupDescription, setGroupDescription] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  // const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const groupsRef = ref(db, 'groups');
 
@@ -39,9 +39,7 @@ const CreateGroup = () => {
         );
         return;
       }
-
       setLoading(true);
-
       const newGroupRef = push(groupsRef);
 
       const groupData = {
@@ -52,13 +50,9 @@ const CreateGroup = () => {
         createdAt: serverTimestamp(),
         events: [],
       };
-
       await set(newGroupRef, groupData);
-
       setLoading(false);
-
       Alert.alert('Success', 'Group created successfully.');
-
       navigation.navigate('Groups');
     } catch (error) {
       console.error(error.message);

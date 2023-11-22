@@ -1,9 +1,28 @@
-import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 import CardSlider from '../components/HomeComponents/CardSlider';
 import ColumnCardSlider from '../components/HomeComponents/ColumnCardSlider';
+import LogoutButton from '../components/LogoutButton';
+import { auth } from '../components/AuthUtils';
+import { signOut } from 'firebase/auth';
+
+const handleLogout = async () => {
+  try {
+    await signOut(auth);
+    // Additional logic after successful logout (if needed)
+  } catch (error) {
+    console.error('Error logging out:', error.message);
+  }
+};
 
 const HomePage = ( { navigation }) => {
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <LogoutButton onPress={() => handleLogout()} />
+      ),
+    });
+  }, [navigation]);
   return (
     <View style={styles.container}>
       <Text style={styles.componentTitle}>{'Events Near You'}</Text>
