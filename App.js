@@ -41,8 +41,10 @@ const App = () => {
     const subscriber = auth.onAuthStateChanged((user) => {
       if (user) {
         setShowHomeScreen(true);
+        setUserEmail(user.email);
       } else {
         setShowHomeScreen(false);
+        setUserEmail(null);
       }
     });
 

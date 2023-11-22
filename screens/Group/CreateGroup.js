@@ -43,6 +43,7 @@ const CreateGroup = () => {
       }
       setLoading(true);
       const newGroupRef = push(groupsRef);
+      console.log(userEmail)
 
       const groupData = {
         name: groupName,
