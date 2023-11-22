@@ -28,7 +28,6 @@ const CreateGroup = () => {
   const [groupLocation, setGroupLocation] = useState('');
   const [groupDescription, setGroupDescription] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  // const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const groupsRef = ref(db, 'groups');
 

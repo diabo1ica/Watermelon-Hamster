@@ -1,12 +1,48 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import UserContext from '../components/UserContext';
+import { ref, push, set, serverTimestamp } from 'firebase/database';
+import { db } from '../components/AuthUtils';
+
 
 export default function EventDetails({ route, navigation }) {
-	const { title, location, description, startDate, endDate, image, price } = route.params;
+	const { groupKey, eventKey, title, location, description, startDate, endDate, image, price, createdBy } = route.params;
+  const { userEmail } = React.useContext(UserContext);
+	const [canDelete, setCanDelete] = React.useState(false);
+
+	console.log(`group key is ${groupKey} and eventKey is ${eventKey}`)
+	const dRef = ref(db, 'groups/' + groupKey + '/events/' + eventKey);
+
 	React.useEffect(() => navigation.setOptions({ title }), [title]);
+	console.log(`createdBy: ${createdBy}`);
+	console.log(`current user: ${userEmail}`);
+
+	React.useEffect(() => {
+		if (createdBy === userEmail) {
+			setCanDelete(true);
+		}
+	}, [createdBy, userEmail])
+
+	// Handle Delete event
+  const handleDeleteEvent = async () => {
+    try {
+			await set(dRef, null);
+			navigation.navigate('Events');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 	return (
 		<View>
+			{canDelete && (
+				<TouchableOpacity
+					style={styles.delete}
+					onPress={handleDeleteEvent}
+				>
+					<Text style={styles.deleteText}>Delete Group</Text>
+				</TouchableOpacity>
+			)}
 			<Image
 				source={{ uri: `data:image/jpeg;base64,${image}` }}
 				style={{ height: 400, width: '100%', alignSelf: "center" }}
@@ -57,5 +93,20 @@ const styles = StyleSheet.create({
 	details: {
 		color: 'white',
 		marginBottom: 10
-	}
+	},
+	delete: {
+		position: 'absolute',
+		top: 10,
+		right: 10,
+    color: 'white',
+    padding: 10,
+    backgroundColor: 'red',
+    borderRadius: 100,
+    fontWeight: 'bold',
+		zIndex: 1
+  },
+  deleteText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 })

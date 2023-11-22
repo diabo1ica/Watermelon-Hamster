@@ -24,8 +24,8 @@ export default function CreateEvent({ route, navigation }) {
   const { userEmail, setUserEmail } = React.useContext(UserContext);
   const [title, setTitle] = React.useState('');
   const [location, setLocation] = React.useState('');
-  const [showStartDatePicker, setShowStartDatePicker] = React.useState(false);
-  const [showEndDatePicker, setShowEndDatePicker] = React.useState(false);
+  const [showStartDatePicker, setShowStartDatePicker] = React.useState(true);
+  const [showEndDatePicker, setShowEndDatePicker] = React.useState(true);
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
   const [description, setDescription] = React.useState('');
@@ -190,7 +190,6 @@ export default function CreateEvent({ route, navigation }) {
                   if (selectedDate) {
                     setStartDate(selectedDate);
                   }
-                  setShowStartDatePicker(false); // Hide the picker after selecting a date
                 }}
               />
             </View>
@@ -230,7 +229,6 @@ export default function CreateEvent({ route, navigation }) {
                   if (selectedDate) {
                     setEndDate(selectedDate);
                   }
-                  setShowEndDatePicker(false); // Hide the picker after selecting a date
                 }}
               />
             </View>
@@ -258,7 +256,7 @@ export default function CreateEvent({ route, navigation }) {
         <TextInput
           placeholder='ticket price'
           placeholderTextColor='rgb(125,125,125)'
-          value={JSON.stringify(ticketPrice)}
+          value={ticketPrice}
           onChangeText={setTicketPrice}
           style={{
             height: 50,

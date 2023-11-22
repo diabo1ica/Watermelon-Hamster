@@ -30,8 +30,8 @@ const GroupDetail = ({ route, navigation }) => {
   // Handle Delete Group
   const handleDeleteGroup = async () => {
     try {
-	  await set(dRef, null);
-	  navigation.navigate('Groups');
+	  	await set(dRef, null);
+	  	navigation.navigate('Groups');
     } catch (error) {
       console.log(error);
     }
@@ -97,8 +97,11 @@ const GroupDetail = ({ route, navigation }) => {
                   endDate={event.endDate}
                   image={event.image}
                   price={event.price}
+									createdBy={event.createdBy}
                   onPress={() =>
                     navigation.navigate('EventDetails', {
+											groupKey: group.id,
+											eventKey: key,
                       title: event.name,
                       location: event.location,
                       description: event.description,
@@ -106,6 +109,7 @@ const GroupDetail = ({ route, navigation }) => {
                       endDate: event.endDate,
                       image: event.image,
                       price: event.price,
+											createdBy: event.createdBy
                     })
                   }
                 />

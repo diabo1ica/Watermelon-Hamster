@@ -56,7 +56,7 @@ export default function Events({ navigation }) {	//
 					{groups.length === 0 ? (
 						<Text style={styles.noEventsText}>There is currently no events!!</Text>
 					) : (
-						Object.entries(groups).map(([key, group]) => {
+						Object.entries(groups).map(([_, group]) => {
 							if (group.events && typeof group.events === 'object') {
 								return Object.entries(group.events).map(([eventKey, event]) => (
 									<View key={eventKey}>
@@ -68,21 +68,25 @@ export default function Events({ navigation }) {	//
 											endDate={event.endDate}
 											image={event.image}
 											price={event.price}
+											createdBy={event.createdBy}
 											onPress={() => navigation.navigate("EventDetails", { 
+												groupKey: group.id,
+												eventKey: eventKey,
 												title: event.name, 
 												location: event.location, 
 												description: event.description, 
 												startDate: event.startDate, 
 												endDate: event.endDate, 
 												image: event.image,
-												price: event.price
+												price: event.price,
+												createdBy: event.createdBy
 											})}
 										/>
 									</View>
 								));
 							} else {
 								// Skip or return null, or render a placeholder, etc.
-								return null;
+								return <Text>No events! Go to one of the groups and create one!</Text>;
 							}
 						})
 					)}
