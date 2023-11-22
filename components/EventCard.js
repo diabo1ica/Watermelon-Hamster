@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     marginVertical: 10,
-    borderWidth: '0.2',
+    borderWidth: 0.2,
     borderColor: 'white'
   },
   image: {
