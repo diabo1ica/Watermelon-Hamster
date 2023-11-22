@@ -29,7 +29,7 @@ export default function CreateEvent({ route, navigation }) {
 	const [endDate, setEndDate] = React.useState(new Date());
 	const [description, setDescription] = React.useState('');
 	const [image, setImage] = React.useState(null);
-	const [ticketPrice, setTicketPrice] = React.useState(0);
+	const [ticketPrice, setTicketPrice] = React.useState('');
 
 	const [loading, setLoading] = React.useState(false);
 
