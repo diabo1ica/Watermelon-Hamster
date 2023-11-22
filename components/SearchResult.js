@@ -5,7 +5,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../components/AuthUtils';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const SearchResult = ({ navigation }) => {
+const SearchResult = ({ navigation, filter }) => {
     const [groups, setGroups] = React.useState([]);
 
     const navigateToGroupDetail = (group) => {
@@ -40,29 +40,56 @@ const SearchResult = ({ navigation }) => {
     }, []);
 
     return (
-        <FlatList
-            data={groups}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-                <View>
-                    <TouchableOpacity onPress={() => navigateToGroupDetail(item)}>
-                        <View style={styles.cardWrapper}>
-                            <Image
-                                style={styles.imageWrapper}
-                                source={{ uri: `data:image/jpeg;base64,${item.image}` }}
-                            />
-                            <View style={styles.bannerWrapper}>
-                                <View style={styles.textBoxWrapper}>
-                                    <Text style={styles.title}>{item.name}</Text>
-                                    <Text style={styles.text}>{item.description}</Text>
+        <View>
+            {!filter && <FlatList
+                data={groups}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <View>
+                        <TouchableOpacity onPress={() => navigateToGroupDetail(item)}>
+                            <View style={styles.cardWrapper}>
+                                <Image
+                                    style={styles.imageWrapper}
+                                    source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+                                />
+                                <View style={styles.bannerWrapper}>
+                                    <View style={styles.textBoxWrapper}>
+                                        <Text style={styles.title}>{item.name}</Text>
+                                        <Text style={styles.text}>{item.description}</Text>
+                                    </View>
+                                    <Ionicons name='md-arrow-forward' size={40} style={styles.icon} />
                                 </View>
-                                <Ionicons name='md-arrow-forward' size={40} style={styles.icon}/>
                             </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            )}
-        />
+                        </TouchableOpacity>
+                    </View>
+                )}
+            />}
+            {filter && <FlatList
+                data={groups.flatMap((group) =>
+                    group.events
+                        ? Object.values(group.events).map((event) => ({
+                            ...event,
+                            groupId: group.id, // Add groupId to identify the group
+                        }))
+                        : []
+                )}
+                renderItem={({ item }) => (
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => navigateToEventDetail(item)}
+                            style={styles.slide}
+                        >
+                            <Image
+                                source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+                                style={styles.image}
+                            />
+                            <Text style={styles.title} numberOfLines={1}>{item.name}</Text>
+                            <Text style={styles.text} numberOfLines={2}>{item.description}</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            />}
+        </View>
     );
 }
 
