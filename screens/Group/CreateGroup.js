@@ -19,8 +19,10 @@ import {
 import { db } from '../../components/AuthUtils';
 import { useNavigation } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
+import UserContext from '../../components/UserContext';
 
 const CreateGroup = () => {
+  const { userEmail, setUserEmail } = React.useContext(UserContext);
   const navigation = useNavigation();
   const [groupName, setGroupName] = useState('');
   const [groupLocation, setGroupLocation] = useState('');
@@ -41,6 +43,7 @@ const CreateGroup = () => {
       }
       setLoading(true);
       const newGroupRef = push(groupsRef);
+      console.log(userEmail)
 
       const groupData = {
         name: groupName,
@@ -48,6 +51,7 @@ const CreateGroup = () => {
         description: groupDescription,
         image: selectedImage,
         createdAt: serverTimestamp(),
+        createdBy: userEmail,
         events: [],
       };
       await set(newGroupRef, groupData);
