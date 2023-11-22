@@ -67,7 +67,7 @@ const MyGroups = ({ navigation }) => {
               style={styles.groupItem}
               onPress={() => navigateToGroupDetail(item)}
             >
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                 <Image
                   source={{ uri: `data:image/jpeg;base64,${item.image}` }}
                   style={styles.groupImage}
