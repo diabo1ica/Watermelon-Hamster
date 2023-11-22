@@ -3,10 +3,6 @@ import { View, Text, Image, StyleSheet, Button } from 'react-native';
 
 export default function EventDetails({ route, navigation }) {
 	const { title, location, description, startDate, endDate, image, price } = route.params;
-	console.log(title);
-	console.log(location);
-	console.log(price);
-	console.log(startDate);
 	React.useEffect(() => navigation.setOptions({ title }), [title]);
 
 	return (
@@ -37,8 +33,6 @@ export default function EventDetails({ route, navigation }) {
 					/>
 				</View>
 			</View>
-			
-			
 		</View>
 	)
 }
