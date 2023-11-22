@@ -6,7 +6,6 @@ const EventCard = ({ title, location, description, image, startDate, endDate, ti
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Image 
         source={{ uri: `data:image/jpeg;base64,${image}` }}
-        // source={{ uri: image }}
         style={styles.image}
       />
       <View style={styles.info}>

@@ -31,12 +31,12 @@ export default function CreateEvent({ route, navigation }) {
     const [endDate, setEndDate] = React.useState(new Date());
     const [description, setDescription] = React.useState('');
     const [image, setImage] = React.useState(null);
-    const [ticketPrice, setTicketPrice] = React.useState('');
-
-    const [loading, setLoading] = React.useState(false);
+    const [ticketPrice, setTicketPrice] = React.useState('0');
 
     const [showStartDatePicker, setShowStartDatePicker] = React.useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = React.useState(false);
+
+    const [loading, setLoading] = React.useState(false);
 
     const eventRef = ref(db, 'groups/' + group.id + '/events');
 
@@ -207,7 +207,7 @@ export default function CreateEvent({ route, navigation }) {
                 <TextInput
                     placeholder='ticket price'
                     placeholderTextColor='rgb(125,125,125)'
-                    value={ticketPrice}
+                    value={JSON.stringify(ticketPrice)}
                     onChangeText={setTicketPrice}
                     style={{ height: 50, backgroundColor: 'white', marginBottom: 20, borderRadius: 5, padding: 10 }}
                 />
