@@ -218,24 +218,24 @@ export default function CreateEvent({ route, navigation }) {
                 flexDirection: 'row',
                 justifyContent: 'space-evenly'
             }}>
-                <View style={{ backgroundColor: 'rgb(155,64,191)', borderRadius: 30 }}>
-                    <Button
-                        style={{ flex: 1 }}
-                        title='Cancel'
-                        color='white'
-                        onPress={() => navigation.navigate('Events')}
-                    />
-                </View>
+						<View style={{ backgroundColor: 'rgb(155,64,191)', borderRadius: 30 }}>
+							<Button
+								style={{ flex: 1 }}
+								title='Cancel'
+								color='white'
+								onPress={() => navigation.navigate('Events')}
+							/>
+						</View>
 
-                <View style={{ backgroundColor: 'rgb(155,64,191)', borderRadius: 30 }}>
-                    <Button
-                        style={{ flex: 1 }}
-                        title='Submit'
-                        color='white'
-                        onPress={handleCreateEvent}
-                    />
-                </View>
-            </View>
+						<View style={{ backgroundColor: 'rgb(155,64,191)', borderRadius: 30 }}>
+							<Button
+								style={{ flex: 1 }}
+								title='Submit'
+								color='white'
+								onPress={handleCreateEvent}
+							/>
+						</View>
+					</View>
         </View>
     )
 }
