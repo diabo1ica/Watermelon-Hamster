@@ -46,10 +46,7 @@ const SearchPage = ({ navigation }) => {
                 <Text style={styles.filterButtonText}>Events</Text>
             </TouchableOpacity>
         </View>
-
-        {!select &&
-            <SearchResult navigation={navigation}/>
-        }
+        <SearchResult navigation={navigation} filter={select}/>
     </View>
   );
 };
