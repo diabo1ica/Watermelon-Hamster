@@ -6,11 +6,12 @@ import FormInputs from '../components/FormInputs';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../components/AuthUtils';
+import UserContext from '../components/UserContext';
 
 const LoginPage = () => {
   // Navigate
   const navigation = useNavigation();
-
+  const { userEmail, setUserEmail } = React.useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,20 +22,27 @@ const LoginPage = () => {
       console.log('Username:', email);
       console.log('Password:', password);
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log('Logged in successfully!');
+        const userId = await signInWithEmailAndPassword(auth, email, password);
+        setUserEmail(email)
+        navigation.navigate('Home');
       } catch (error) {
         // Handle specific authentication errors
         switch (error.code) {
           case 'auth/invalid-login-credentials':
-            Alert.alert('Invalid Login Credentials', 'Please check your username and password.');
+            Alert.alert(
+              'Invalid Login Credentials',
+              'Please check your username and password.'
+            );
             break;
           case 'auth/invalid-email':
             Alert.alert('Invalid Email', 'Please enter a valid email.');
             break;
           default:
-            Alert.alert('Login Error', 'An error occurred during login. Please try again.');
-            console.error(error.message)
+            Alert.alert(
+              'Login Error',
+              'An error occurred during login. Please try again.'
+            );
+            console.error(error.message);
             break;
         }
       }
@@ -73,7 +81,7 @@ const styles = StyleSheet.create({
   header1: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom:10,
+    marginBottom: 10,
     color: 'white',
   },
   header2: {
