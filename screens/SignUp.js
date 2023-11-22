@@ -35,11 +35,6 @@ const SignUp = () => {
   const handleSignUp = async () => {
     // Perform sign-up logic here if all forms are filled
     if (allFormsFilled) {
-      console.log('Signing up...');
-      console.log('Email:', email);
-      console.log('Mobile Number:', mobileNum);
-      console.log('Full Name:', name);
-      console.log('Password:', password);
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         console.log('User registered successfully!');
@@ -69,6 +64,7 @@ const SignUp = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header1}>Welcome to RealLife!</Text>
       <FormInputs placeholder='Email' onChangeText={setEmail} />
       <FormInputs placeholder='MobileNum' onChangeText={setMobileNum} />
       <FormInputs placeholder='Name' onChangeText={setName} />
@@ -77,8 +73,8 @@ const SignUp = () => {
 
       <SubmitButton disabled={!toggleCheckBox} text='Register' onPress={handleSignUp} />
 
-      <Text style={styles.noAccount}>Don't have an account?</Text>
-      <Button title='Login' style={styles.signUpButton} onPress={() => navigation.navigate('LoginPage')} />
+      <Text style={styles.noAccount}>Already have an account?</Text>
+      <Button title='Login' style={styles.signUpButton} onPress={() => navigation.navigate('Login')} />
     </View>
   );
 };
@@ -90,6 +86,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     backgroundColor: '#1A1A1A',
+  },
+  header1: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   input: {
     width: '100%',
