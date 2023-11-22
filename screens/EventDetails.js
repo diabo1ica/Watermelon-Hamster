@@ -9,7 +9,6 @@ export default function EventDetails({ route, navigation }) {
 		<View>
 			<Image
 				source={{ uri: `data:image/jpeg;base64,${image}` }}
-				// source={{ uri: image }}
 				style={{ height: 400, width: '100%', alignSelf: "center" }}
 			/>
 			<View style={styles.main}>

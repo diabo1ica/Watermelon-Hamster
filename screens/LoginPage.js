@@ -46,6 +46,8 @@ const LoginPage = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header1}>Welcome Back!</Text>
+      <Text style={styles.header2}>Login to your account</Text>
       <FormInputs placeholder='Email' onChangeText={setEmail} />
       <PasswordInput placeholder='Password' onChangeText={setPassword} />
       <SubmitButton disabled={false} text='Login' onPress={handleLogin} />
@@ -71,7 +73,11 @@ const styles = StyleSheet.create({
   header1: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 24,
+    marginBottom:10,
+    color: 'white',
+  },
+  header2: {
+    fontSize: 16,
     color: 'white',
   },
   input: {
