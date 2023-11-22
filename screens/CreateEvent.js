@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
+import UserContext from '../components/UserContext';
 
 import { ref, push, set, serverTimestamp } from 'firebase/database';
 import UserContext from '../components/UserContext';
@@ -24,6 +25,8 @@ export default function CreateEvent({ route, navigation }) {
   const { userEmail, setUserEmail } = React.useContext(UserContext);
   const [title, setTitle] = React.useState('');
   const [location, setLocation] = React.useState('');
+  const [showStartDatePicker, setShowStartDatePicker] = React.useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = React.useState(false);
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
   const [description, setDescription] = React.useState('');
